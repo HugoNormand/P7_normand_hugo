@@ -20,7 +20,7 @@ exports.createPost = (req, res, next) => {
       })
     } else {
       post = new Post({
-        ...req.body,
+        ...JSON.parse(req.body.post),
         likes: 0,
         usersLiked: [],
         usersComment: []
@@ -47,13 +47,18 @@ exports.deleteOnePost = (req, res, next) => {
       if (post.userId !== req.auth.userId) {
         res.status(400).json({ error })
       }
-      const filename = post.imageUrl.split('/images/')[1];
-      fs.unlink(`images/${filename}`, () => {
+      if (post.imageUrl) { 
+        const filename = post.imageUrl.split('/images/')[1];
+        fs.unlink(`images/${filename}`, () => {
           Post.deleteOne({ _id: req.params.id })
   .then(() => res.status(200).json({ message: 'Post supprimé'}))
   .catch(error => res.status(400).json({ error }))
-      })    
-    }
+      }) } else {
+        Post.deleteOne({ _id: req.params.id })
+  .then(() => res.status(200).json({ message: 'Post supprimé'}))
+  .catch(error => res.status(400).json({ error }))
+      }    
+    } 
   )
   .catch(error => res.status(500).json({ error }))    
 }
@@ -71,7 +76,7 @@ exports.modifyPost = (req, res, next) => {
   {
       ...JSON.parse(req.body.post),
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  } : {...req.body};      
+  } : {...JSON.parse(req.body.post)};      
   Post
   .updateOne({ _id: req.params.id }, { ...postFile, _id: req.params.id })
   .then(() => res.status(200).json({message: 'Objet modifié !'}))
@@ -144,7 +149,7 @@ exports.deleteComment = (req, res, next) => {
         if (!post) {
           res.status(404).json({ error })
         }
-        if (req.body.commenterId !== req.auth.userId) {
+        if (req.body.commenterId !== req.body.userId) {
           res.status(403).json('403: unauthorized request')
         } 
         Post.updateOne(
