@@ -1,7 +1,7 @@
 <template>
     <div class="block_modify">
         <h3 class="comment_title_modify">Modifie ton commentaire</h3>
-        <form class="form_comment_modify">
+        <form v-on:submit.prevent class="form_comment_modify">
             <textarea v-model="text" class="comment_text_modify">{{this.text}}</textarea>
             <button v-on:click.preventDefault="ModifyPost()">Modifier</button>
         </form>

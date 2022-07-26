@@ -65,6 +65,9 @@ export default {
     flex-direction: column;
     align-self: center;
     align-items: center;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
+    border: solid #4E5166;
+     border-radius: 5px;
 }
 
 .post_text {

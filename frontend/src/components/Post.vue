@@ -87,7 +87,9 @@ export default {
     display: flex;
     flex-direction: column;
     border: solid #4E5166;
+     border-radius: 5px;
     background-color: #FFD7D7;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
     padding: 20px;
     margin: 20px;
     width: 80%;
@@ -107,12 +109,14 @@ export default {
 
 .block_image {
     align-self: center;
+    height: auto;
+    width: 50%;
+    border: solid #4E5166;
+    border-radius: 5px;
 }
 
-img {
-    object-fit: contain;
-    width: 400px;
-    height: 300px
+.image_post {
+    width: 100%;
 }
 
 .button_like {

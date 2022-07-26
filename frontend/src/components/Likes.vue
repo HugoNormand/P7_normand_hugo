@@ -36,7 +36,7 @@ export default {
                 { 'Authorization': `Bearer ${token.token}`}})
                 .then(()=> location.reload())
         },
-        
+
         DislikeUpdate(id) {
             this.like = 0
             console.log(this.like)
@@ -60,6 +60,9 @@ export default {
 <style>
 .button_like {
     display: flex;
+    width: 100%;
+    border-top: solid #4E5166;
+    margin-top: 10px;
 }
 
 .LikeButton {
