@@ -3,6 +3,7 @@ import Signup from '../views/Signup.vue'
 import Login from '../views/Login.vue'
 import Home from '../views/Home.vue'
 import ModifyPost from '../views/ModifyPost.vue'
+import ModifyComment from '../views/ModifyComment.vue'
 
 
 const router = createRouter({
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/modifyPost/:id',
       name: 'ModifyPost',
       component: ModifyPost
+    },
+    {
+      path: '/modifyComment/:id',
+      name: 'ModifyComment',
+      component: ModifyComment
     }
   ]
 })

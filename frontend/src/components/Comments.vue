@@ -18,6 +18,7 @@
           </div>
           <div class="delete_commenter">
               <button v-if="auth(comments.commenterId)" v-on:click="deleteButton(postId, comments._id, comments.commenterId)">Supprimer</button>
+              <button v-if="auth(comments.commenterId)" v-on:click="routeModifyComment(postId, comments._id, comments.text) ">Modifier</button>
           </div>
       </div>
   </div>
@@ -66,6 +67,14 @@ export default {
                 userId: userId
             }
             }).then(() => location.reload())
+        },
+        routeModifyComment(id, commentId, commentText) {
+            this.$router.push(`/modifyComment/${id}`)
+            const data = {
+                commentId: commentId,
+                commenterText: commentText
+            }
+            localStorage.setItem('comment', JSON.stringify(data))
         },
         auth(postUserId){
             const userId = JSON.parse(localStorage.getItem('user')).userId
