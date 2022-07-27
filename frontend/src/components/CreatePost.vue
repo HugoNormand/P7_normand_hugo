@@ -39,7 +39,8 @@ export default {
         },
 
         createPost() {
-            let formData = new FormData()
+            if (this.postData.postText || this.postData.file !== '') {
+                let formData = new FormData()
             let post = {
                 postText: this.postData.postText,
                 userId: JSON.parse(localStorage.getItem('user')).userId,
@@ -53,6 +54,9 @@ export default {
                              'Authorization': `Bearer ${token.token}` 
                               }})
                 .then(()=> location.reload())
+            } else {
+                window.alert('Veuillez remplir un des champs')
+            }    
         },
     }       
     }

@@ -44,20 +44,38 @@ exports.deleteOnePost = (req, res, next) => {
       if (!post) {
         res.status(404).json({ error })
       }
-      if (post.userId !== req.auth.userId) {
+
+      if (JSON.stringify(req.body.adminId)) {
+          if (post.imageUrl) { 
+          const filename = post.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${filename}`, () => {
+            Post.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Post supprimé'}))
+    .catch(error => res.status(400).json({ error }))
+        }) } 
+          else {
+          Post.deleteOne({ _id: req.params.id })
+    .then(() => res.status(200).json({ message: 'Post supprimé'}))
+    .catch(error => res.status(400).json({ error }))
+        }  
+      } 
+    /* if (post.userId !== req.auth.userId) {
         res.status(400).json({ error })
-      }
-      if (post.imageUrl) { 
+      }  */
+    else if (post.userId == req.auth.userId) {
+        if (post.imageUrl) { 
         const filename = post.imageUrl.split('/images/')[1];
         fs.unlink(`images/${filename}`, () => {
           Post.deleteOne({ _id: req.params.id })
   .then(() => res.status(200).json({ message: 'Post supprimé'}))
   .catch(error => res.status(400).json({ error }))
-      }) } else {
+      }) } 
+        else {
         Post.deleteOne({ _id: req.params.id })
   .then(() => res.status(200).json({ message: 'Post supprimé'}))
   .catch(error => res.status(400).json({ error }))
-      }    
+      } 
+      }        
     } 
   )
   .catch(error => res.status(500).json({ error }))    

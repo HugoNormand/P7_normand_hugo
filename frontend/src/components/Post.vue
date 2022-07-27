@@ -7,8 +7,8 @@
             <div class="block_profil">
                 <h3>{{post.username}}</h3>
                 <div>
-                    <button class="delete_button" v-if="auth(post.userId)" v-on:click="deletePosts(post._id)">Supprimer</button>
-                    <button v-if="auth(post.userId)" v-on:click="routeModifyPost(post._id)">Modifier</button>
+                    <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)">Supprimer</button>
+                    <button v-if="auth(post.userId) || admin() " v-on:click="routeModifyPost(post._id)">Modifier</button>
                 </div>
             </div>
             <div class="block_texte">
@@ -55,6 +55,12 @@ export default {
             }
         },
 
+        admin() {
+           if (localStorage.getItem('admin')) {
+               return true
+           }
+        },
+
         updatePosts(){
             const token = JSON.parse(localStorage.getItem('user'))
             axios.get("http://localhost:3000/api/post", {
@@ -67,12 +73,25 @@ export default {
         },
 
         deletePosts(id){
-            const token = JSON.parse(localStorage.getItem('user'))
-            axios.delete("http://localhost:3000/api/post/"+id, {
+            if (localStorage.getItem('admin')) {
+                const token = JSON.parse(localStorage.getItem('user'))
+                const adminId = JSON.parse(localStorage.getItem('admin'))
+                axios.delete("http://localhost:3000/api/post/"+id, {
                 headers: {
                     'Authorization': `Bearer ${token.token}`
-                }
+                },
+                data: {
+                    adminId: adminId
+                } 
             }).then(() => this.updatePosts())
+            } else {
+                const token = JSON.parse(localStorage.getItem('user'))
+                axios.delete("http://localhost:3000/api/post/"+id, {
+                headers: {
+                    'Authorization': `Bearer ${token.token}`
+                } 
+            }).then(() => this.updatePosts())
+         }
         },
 
         routeModifyPost(id) {

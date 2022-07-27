@@ -44,14 +44,20 @@ export default {
           })
           axios.post("http://localhost:3000/api/auth/login", connexion)
           .then((res) => {
-                     localStorage.setItem("user", JSON.stringify(res.data)),
-                     localStorage.setItem("loggedIn", true),
-                     this.$router.push("/home")
-                     }      
+            if (connexion.email == 'admin@admin.com') {
+              localStorage.setItem("admin", JSON.stringify(res.data.userId)),
+              localStorage.setItem("user", JSON.stringify(res.data)),
+              localStorage.setItem("loggedIn", true),
+              this.$router.push("/home")
+            } else {
+              localStorage.setItem("user", JSON.stringify(res.data)),
+              localStorage.setItem("loggedIn", true),
+              this.$router.push("/home")
+            }         
+             }      
           ) 
         }, 
-      },
-      
+      },  
     }
 </script>
 
