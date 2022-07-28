@@ -1,9 +1,16 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
+import Header from './components/Header.vue'
+export default {
+  components: {
+    Header
+  }
+}
 </script>
 
-<template>
-  <RouterView></RouterView>
+<template> 
+<Header />
+<RouterView></RouterView>
 </template>
 
 <style>
@@ -12,5 +19,7 @@ import { RouterLink, RouterView } from 'vue-router'
 body {
   background-color: #4E5166;
   font-family: 'Lato';
+  color: #4E5166;
 }
+
 </style>

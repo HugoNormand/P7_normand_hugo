@@ -41,11 +41,11 @@ export default {
         createPost() {
             if (this.postData.postText || this.postData.file !== '') {
                 let formData = new FormData()
-            let post = {
-                postText: this.postData.postText,
-                userId: JSON.parse(localStorage.getItem('user')).userId,
-                username: JSON.parse(localStorage.getItem('user')).username
-            }
+                let post = {
+                    postText: this.postData.postText,
+                    userId: JSON.parse(localStorage.getItem('user')).userId,
+                    username: JSON.parse(localStorage.getItem('user')).username
+                }
             formData.append('post', JSON.stringify(post))
             formData.append('image', this.postData.file)
             const token = JSON.parse(localStorage.getItem('user'))

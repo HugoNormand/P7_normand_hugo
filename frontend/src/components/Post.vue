@@ -19,7 +19,7 @@
                 <img class="image_post" v-bind:src="post.imageUrl">
             </div>
         
-        <Likes :postId="post._id" :usersLiked="post.usersLiked"/>
+        <Likes :postId="post._id" :usersLiked="post.usersLiked" :comment="post.usersComment"/>
         <Comments :postId="post._id" :comment="post.usersComment"/>
     </div>
 </template>
@@ -106,8 +106,9 @@ export default {
     display: flex;
     flex-direction: column;
     border: solid #4E5166;
-     border-radius: 5px;
+    border-radius: 5px;
     background-color: #FFD7D7;
+    opacity: 0.9;
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
     padding: 20px;
     margin: 20px;
@@ -140,6 +141,10 @@ export default {
 
 .button_like {
     align-self: flex-start;
+}
+
+.block_texte {
+    font-size: 30px;
 }
 
 </style>

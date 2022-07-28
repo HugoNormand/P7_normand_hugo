@@ -1,6 +1,6 @@
 <template>
     <div class="all">
-        <button class="buttonLogout" v-on:click="logOut()">logout</button>
+        <Profil />
         <CreatePost />
         <Post />
     </div>
@@ -9,17 +9,14 @@
 <script>
 import Post from '../components/Post.vue';
 import CreatePost from '../components/CreatePost.vue'
+import Profil from '../components/Profil.vue'
+import Header from '../components/Header.vue'
 export default {
     components: {
         Post,
-        CreatePost
+        CreatePost,
+        Profil,
     },
-    methods: {
-        logOut(){
-            localStorage.clear();
-            this.$router.push("/login")
-        }
-    }
 }
 </script>
 
@@ -27,12 +24,6 @@ export default {
 .all {
     display: flex;
     flex-direction: column;
-}
-
-.buttonLogout {
-    height: 30px;
-    width: 100px;
-    align-self: flex-end;
 }
 
 </style>

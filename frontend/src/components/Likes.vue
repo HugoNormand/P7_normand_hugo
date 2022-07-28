@@ -1,8 +1,15 @@
 <template>
    <div class="button_like">
-        <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)">Like</button>
-        <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)">DisLike</button>
-        <p>{{usersLiked.length}}</p>
+       <div class="like_block">
+            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)">Like</button>
+            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)">DisLike</button>
+            <p>{{usersLiked.length}}</p>
+       </div>
+        
+        <div class="commentaire_length">
+            <p v-if="comment.length == 1">{{comment.length + ' ' + 'commentaire'}}</p> 
+            <p v-if="comment.length > 1">{{comment.length + ' ' + 'commentaires'}}</p> 
+        </div> 
    </div>
 </template>
 
@@ -12,6 +19,7 @@ export default {
     props: {
         postId: String,
         usersLiked: { type: [String] },
+        comment: []
     },
     data() {
         return {
@@ -60,6 +68,7 @@ export default {
 <style>
 .button_like {
     display: flex;
+    justify-content: space-between;
     width: 100%;
     border-top: solid #4E5166;
     margin-top: 10px;
@@ -70,5 +79,13 @@ export default {
     width: 100px;
     align-self: center;
     margin-right: 10px;
+}
+
+.like_block {
+    display: flex;
+}
+
+.commentaire_length{
+    align-self: flex-end;
 }
 </style>

@@ -104,7 +104,7 @@ export default {
 }
 
 .block_commenter_text {
-    border: solid #4E5166;
+   
     box-shadow: 5px 5px 15px 5px rgba(103, 103, 103, 0.36);
     border-radius: 5px;
     height: 80px;
@@ -115,8 +115,7 @@ export default {
 .UsersComment {
     display: flex;
     flex-direction: column;
-    border-top: solid #4E5166;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .commenter_name {
