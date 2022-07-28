@@ -130,13 +130,16 @@ export default {
 .block_image {
     align-self: center;
     height: auto;
-    width: 50%;
-    border: solid #4E5166;
-    border-radius: 5px;
+    width: 100%;
+    height: 300px;  
 }
 
 .image_post {
     width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 2px rgba(74, 74, 74, 0.36)
 }
 
 .button_like {
@@ -144,7 +147,7 @@ export default {
 }
 
 .block_texte {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 </style>

@@ -8,7 +8,7 @@
           <input type="file" name="images" @change="onFileSelected" ref="file" id="file_id"/>
           <button v-if="postData.file" v-on:click="removeFileSelect">Supprimer l'image</button>
       </div>
-      <div v-if="postData.file" class="image_apparition"><img :src="postData.newImg.src" :alt="postData.file.name"></div>
+      <div v-if="postData.file" class="image_apparition"><img :src="postData.newImg.src" :alt="postData.file.name" class="img_createPost"></div>
       <button>Publier</button>
     </form>
 </template>
@@ -71,7 +71,7 @@ export default {
     align-items: center;
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
     border: solid #4E5166;
-     border-radius: 5px;
+    border-radius: 5px;
 }
 
 .post_text {
@@ -80,12 +80,18 @@ export default {
 
 .text_style {
     border: solid #4E5166;
+    border-radius: 5px;
     width: 100%;
-    height: 60px;
+    height: 100px;
 }
 
 .image_apparition {
     padding-top: 10px;
+    width: 100%;
 }
 
+.img_createPost {
+    width: 100%;
+    object-fit: contain;
+}
 </style>
