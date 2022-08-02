@@ -2,8 +2,9 @@
   <div class="commentSection">
       <div class="postComment">
           <textarea class="comment" placeholder="Votre Commentaire" v-model="this.text"></textarea>
-          <button class="submitComment" v-on:click="submitComment(postId)"><span style="font-size : 22px; color: white"><i class="fa-regular fa-comments"></i></span></button>
+          <button class="submitComment" v-on:click="submitComment(postId)"><span class= "comment_icon_button"><i class="fa-regular fa-comments"></i></span></button>
       </div>
+      <p class="msgError_comment" v-if="this.text == ''">{{msgError}}</p>
       <div v-for=" comments in comment" class="UsersComment" >
           <div class="imageProfilCommenter">  
 
@@ -33,7 +34,8 @@ export default {
     },
     data() {
         return {
-            text: ''
+            text: '',
+            msgError: ''
         }     
     },
     methods: {
@@ -53,20 +55,25 @@ export default {
         },
 
         submitComment(id) {
-            const token = JSON.parse(localStorage.getItem('user'))
-            const text = this.text
-            const commenterId = JSON.parse(localStorage.getItem('user')).userId
-            const username = JSON.parse(localStorage.getItem('user')).username
-            axios.post(`http://localhost:3000/api/post/${id}/comment`, {
-                commenterId: commenterId,
-                commenterPseudo: username,
-                text: text
-            }, { 
+            if (this.text !== '') {
+                const token = JSON.parse(localStorage.getItem('user'))
+                const text = this.text
+                const commenterId = JSON.parse(localStorage.getItem('user')).userId
+                const username = JSON.parse(localStorage.getItem('user')).username
+                axios.post(`http://localhost:3000/api/post/${id}/comment`, {
+                    commenterId: commenterId,
+                    commenterPseudo: username,
+                    text: text
+                }, { 
                 headers: { 
                              'Authorization': `Bearer ${token.token}` 
                 }}
             )
             .then(() => location.reload())
+            }
+            else {
+                this.msgError = 'Veuillez remplir le champ'
+            }
         },
         
         deleteButton(id, commentId, Idcommenter) {
@@ -144,9 +151,24 @@ export default {
    cursor: pointer;
 }
 
+.msgError_comment {
+    color: #FD2D01;
+}
+
 .comment_button{
     background-color: #4E5166;
     border: none;
     cursor: pointer;
+}
+
+.comment_icon_button {
+    font-size: 22px;
+    color: white;
+    transition: color 0.3s;
+}
+
+.comment_icon_button:hover {
+    color: #FFD7D7;
+    transition: color 0.3s;
 }
 </style>

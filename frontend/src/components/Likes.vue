@@ -1,7 +1,7 @@
 <template>
    <div class="button_like">
        <div class="like_block">
-            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)"><span style="font-size: 25px; color: white;"><i class="fa-regular fa-thumbs-up"></i></span></button>
+            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)"><span class="thumbs_up_like"><i class="fa-regular fa-thumbs-up"></i></span></button>
             <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)"><span style="font-size: 25px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
             <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
        </div>
@@ -72,6 +72,7 @@ export default {
     width: 100%;
     border-top: solid #4E5166;
     margin-top: 10px;
+    border-top:  solid #FFD7D7;
 }
 
 .LikeButton {
@@ -82,6 +83,8 @@ export default {
     background-color: #4E5166;
     border: none;
     cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .like_block {
@@ -90,5 +93,16 @@ export default {
 
 .commentaire_length{
     align-self: flex-end;
+}
+
+.thumbs_up_like {
+    font-size: 25px;
+    color: white;
+    transition: color 0.3s;
+}
+
+.thumbs_up_like:hover {
+    color: #FFD7D7;
+    transition: color 0.3s;
 }
 </style>
