@@ -1,9 +1,9 @@
 <template>
    <div class="button_like">
        <div class="like_block">
-            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)">Like</button>
-            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)">DisLike</button>
-            <p>{{usersLiked.length}}</p>
+            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)"><span style="font-size: 25px; color: white;"><i class="fa-regular fa-thumbs-up"></i></span></button>
+            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)"><span style="font-size: 25px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
+            <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
        </div>
         
         <div class="commentaire_length">
@@ -76,9 +76,12 @@ export default {
 
 .LikeButton {
     height: 30px;
-    width: 100px;
+    width: 20px;
     align-self: center;
-    margin-right: 10px;
+    margin-right: 20px;
+    background-color: #4E5166;
+    border: none;
+    cursor: pointer;
 }
 
 .like_block {

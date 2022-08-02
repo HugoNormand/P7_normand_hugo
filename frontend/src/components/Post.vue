@@ -7,8 +7,8 @@
             <div class="block_profil">
                 <h3>{{post.username}}</h3>
                 <div>
-                    <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)">Supprimer</button>
-                    <button v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)">Modifier</button>
+                    <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)"><span style="font-size: 20px; color: white"><i class="fa-solid fa-trash"></i></span></button>
+                    <button class="modify_button" v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)"><span style="font-size: 20px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
                 </div>
             </div>
             <div class="block_texte">
@@ -79,6 +79,7 @@ export default {
                     }})
                     .then(() => this.updatePosts())
         },
+        
         routeModifyPost(id) {
             this.$router.push(`/modifyPost/${id}`)
         }
@@ -92,7 +93,7 @@ export default {
     flex-direction: column;
     border: solid #4E5166;
     border-radius: 5px;
-    background-color: #FFD7D7;
+    background-color: #4E5166;
     opacity: 0.9;
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
     padding: 20px;
@@ -108,8 +109,20 @@ export default {
 }
 
 .delete_button {
-    height: 30px;
-    width: 100px;
+    height: 40px;
+    width: 30px;
+    background-color: #4E5166;
+    border: none;
+    cursor: pointer;
+}
+
+.modify_button{
+    height: 40px;
+    width: 30px;
+    background-color: #4E5166;
+    border: none;
+    cursor: pointer;
+    margin-left: 8px;
 }
 
 .block_image {

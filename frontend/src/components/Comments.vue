@@ -2,7 +2,7 @@
   <div class="commentSection">
       <div class="postComment">
           <textarea class="comment" placeholder="Votre Commentaire" v-model="this.text"></textarea>
-          <button class="submitComment" v-on:click="submitComment(postId)"><i class="fa-solid fa-comment"></i></button>
+          <button class="submitComment" v-on:click="submitComment(postId)"><span style="font-size : 22px; color: white"><i class="fa-regular fa-comments"></i></span></button>
       </div>
       <div v-for=" comments in comment" class="UsersComment" >
           <div class="imageProfilCommenter">  
@@ -17,8 +17,8 @@
               </div>
           </div>
           <div class="delete_commenter">
-              <button v-if="auth(comments.commenterId) || admin()" v-on:click="deleteButton(postId, comments._id, comments.commenterId)">Supprimer</button>
-              <button  v-on:click="routeModifyComment(postId, comments._id, comments.text) ">Modifier</button>
+              <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="deleteButton(postId, comments._id, comments.commenterId)"><span style="font-size: 17px; color: white"><i class="fa-solid fa-trash"></i></span></button>
+              <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="routeModifyComment(postId, comments._id, comments.text) "><span style="font-size: 17px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
           </div>
       </div>
   </div>
@@ -115,12 +115,13 @@ export default {
 }
 
 .block_commenter_text {
-   
+    background-color: #31333f;
     box-shadow: 5px 5px 15px 5px rgba(103, 103, 103, 0.36);
     border-radius: 5px;
     height: 80px;
     margin: 10px;
     padding-left: 10px;
+    width: auto;
 }
 
 .UsersComment {
@@ -138,9 +139,14 @@ export default {
 }
 
 .submitComment {
-   background-color: #FFD7D7;
+   background-color: #4E5166;
    border: none;
    cursor: pointer;
 }
 
+.comment_button{
+    background-color: #4E5166;
+    border: none;
+    cursor: pointer;
+}
 </style>

@@ -10,6 +10,7 @@
       </div>
       <div v-if="postData.file" class="image_apparition"><img :src="postData.newImg.src" :alt="postData.file.name" class="img_createPost"></div>
       <button>Publier</button>
+      <p class="msg_error_post" v-if="this.postData.msgError !== ''">{{postData.msgError }}</p>
     </form>
 </template>
 
@@ -21,7 +22,8 @@ export default {
            postData: {
                postText: '',
                file: '',
-               newImg: ''
+               newImg: '',
+               msgError: ''
            }     
        }
     },
@@ -55,7 +57,7 @@ export default {
                               }})
                 .then(()=> location.reload())
             } else {
-                window.alert('Veuillez remplir un des champs')
+                this.postData.msgError = 'Veuillez renseigner un des champs'
             }    
         },
     }       
@@ -69,6 +71,7 @@ export default {
     flex-direction: column;
     align-self: center;
     align-items: center;
+    background-color: #4E5166;
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
     border: solid #4E5166;
     border-radius: 5px;
@@ -95,4 +98,9 @@ export default {
     width: 100%;
     object-fit: contain;
 }
+
+.msg_error_post{
+    color: #FD2D01;
+}
+
 </style>
