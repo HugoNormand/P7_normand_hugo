@@ -15,7 +15,8 @@ exports.signup = (req, res, next) => {
             const newUser = new user({
                 email: req.body.email,
                 username: req.body.username,
-                password: hash
+                password: hash,
+                isAdmin: req.body.isAdmin ? req.body.isAdmin : false
             });
             newUser.save()
                 .then(() => res.status(201).json( { message: 'Utilisateur crée' } ))
@@ -44,7 +45,9 @@ exports.login = (req, res, next) => {
                         userId: currentUser._id,
                         username: currentUser.username,
                         token: jwt.sign(
-                            { userId: currentUser._id},
+                            { userId: currentUser._id,
+                              isAdmin: currentUser.isAdmin
+                            },
                             'RANDOM_TOKEN_SECRET',
                             { expiresIn: '24h' }
                         )

@@ -51,7 +51,40 @@ export default {
              remove.remove() 
         },
         PostModify() {
-            if (this.data.file !== '') {
+            if (localStorage.getItem('admin')) {
+                if (this.data.file !== '') {
+                let formData = new FormData()
+                let post = {
+                postText: this.ModifyPost.postText,    
+            }
+            formData.append('post', JSON.stringify(post))
+            formData.append('image', this.data.file)
+            const id = this.$route.params.id
+            const token = JSON.parse(localStorage.getItem('user'))
+            const adminId = JSON.parse(localStorage.getItem('admin'))
+            axios.put(`http://localhost:3000/api/post/${id}`, formData, 
+                { headers: { 'Content-Type': 'multipart/form-data',
+                             'Authorization': `Bearer ${token.token}` 
+                              }})
+                .then(() => this.$router.push("/home"))
+            } else  {
+                let formData = new FormData()
+                let post = {
+                 postText: this.ModifyPost.postText,
+                 adminId: JSON.parse(localStorage.getItem('admin'))
+            }
+            formData.append('post', JSON.stringify(post))
+            console.log(formData)
+            const id = this.$route.params.id
+            const token = JSON.parse(localStorage.getItem('user'))
+            axios.put(`http://localhost:3000/api/post/${id}`, formData, 
+                { headers: { 'Content-Type': 'multipart/form-data',
+                             'Authorization': `Bearer ${token.token}` 
+                              }})
+                .then(() => this.$router.push("/home"))
+            }
+            } else {
+                if (this.data.file !== '') {
                 let formData = new FormData()
             let post = {
                 postText: this.ModifyPost.postText,
@@ -79,6 +112,7 @@ export default {
                               }})
                 .then(() => this.$router.push("/home"))
             }
+            }     
         } 
     }       
     }

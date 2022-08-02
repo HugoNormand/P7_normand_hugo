@@ -1,7 +1,7 @@
 <template>
     <div class="block_headerProfil">
         <h2>{{ this.profilName }}</h2>
-        <button class="buttonLogout" v-on:click="logOut()">logout</button> 
+        <button class="buttonLogout" v-on:click="logOut()"><i class="fa-solid fa-right-from-bracket"></i></button> 
     </div>   
 </template>
 
@@ -32,6 +32,9 @@ export default {
 .buttonLogout {
     width: 100px;
     height: 30px;   
+    background-color: #4E5166;
+    border: none;
+    cursor: pointer;
 }
 
 h2 {

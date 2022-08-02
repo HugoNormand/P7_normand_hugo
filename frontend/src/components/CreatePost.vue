@@ -79,6 +79,7 @@ export default {
 }
 
 .text_style {
+    margin-top: 10px;
     border: solid #4E5166;
     border-radius: 5px;
     width: 100%;

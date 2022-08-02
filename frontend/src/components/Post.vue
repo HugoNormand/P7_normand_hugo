@@ -8,7 +8,7 @@
                 <h3>{{post.username}}</h3>
                 <div>
                     <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)">Supprimer</button>
-                    <button v-if="auth(post.userId) || admin() " v-on:click="routeModifyPost(post._id)">Modifier</button>
+                    <button v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)">Modifier</button>
                 </div>
             </div>
             <div class="block_texte">
@@ -45,7 +45,6 @@ export default {
     },
 
     methods: {
-
         auth(postUserId){
             const userId = JSON.parse(localStorage.getItem('user')).userId
             if (postUserId == userId) {
@@ -73,27 +72,13 @@ export default {
         },
 
         deletePosts(id){
-            if (localStorage.getItem('admin')) {
-                const token = JSON.parse(localStorage.getItem('user'))
-                const adminId = JSON.parse(localStorage.getItem('admin'))
-                axios.delete("http://localhost:3000/api/post/"+id, {
-                headers: {
-                    'Authorization': `Bearer ${token.token}`
-                },
-                data: {
-                    adminId: adminId
-                } 
-            }).then(() => this.updatePosts())
-            } else {
                 const token = JSON.parse(localStorage.getItem('user'))
                 axios.delete("http://localhost:3000/api/post/"+id, {
-                headers: {
-                    'Authorization': `Bearer ${token.token}`
-                } 
-            }).then(() => this.updatePosts())
-         }
+                    headers: {
+                        'Authorization': `Bearer ${token.token}`
+                    }})
+                    .then(() => this.updatePosts())
         },
-
         routeModifyPost(id) {
             this.$router.push(`/modifyPost/${id}`)
         }
@@ -137,9 +122,9 @@ export default {
 .image_post {
     width: 100%;
     height: 300px;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 5px;
-    box-shadow: 5px 5px 10px 2px rgba(74, 74, 74, 0.36)
+    box-shadow: 5px 5px 10px 2px rgba(74, 74, 74, 0.36);
 }
 
 .button_like {

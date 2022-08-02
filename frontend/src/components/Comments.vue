@@ -2,7 +2,7 @@
   <div class="commentSection">
       <div class="postComment">
           <textarea class="comment" placeholder="Votre Commentaire" v-model="this.text"></textarea>
-          <button class="submitComment" v-on:click="submitComment(postId)">Commenter</button>
+          <button class="submitComment" v-on:click="submitComment(postId)"><i class="fa-solid fa-comment"></i></button>
       </div>
       <div v-for=" comments in comment" class="UsersComment" >
           <div class="imageProfilCommenter">  
@@ -17,8 +17,8 @@
               </div>
           </div>
           <div class="delete_commenter">
-              <button v-if="auth(comments.commenterId)" v-on:click="deleteButton(postId, comments._id, comments.commenterId)">Supprimer</button>
-              <button v-if="auth(comments.commenterId)" v-on:click="routeModifyComment(postId, comments._id, comments.text) ">Modifier</button>
+              <button v-if="auth(comments.commenterId) || admin()" v-on:click="deleteButton(postId, comments._id, comments.commenterId)">Supprimer</button>
+              <button  v-on:click="routeModifyComment(postId, comments._id, comments.text) ">Modifier</button>
           </div>
       </div>
   </div>
@@ -37,6 +37,21 @@ export default {
         }     
     },
     methods: {
+        auth(postUserId){
+            const userId = JSON.parse(localStorage.getItem('user')).userId
+            if (postUserId == userId) {
+                return true
+            } else {
+                return false
+            }
+        },
+
+        admin() {
+           if (localStorage.getItem('admin')) {
+               return true
+           }
+        },
+
         submitComment(id) {
             const token = JSON.parse(localStorage.getItem('user'))
             const text = this.text
@@ -50,8 +65,10 @@ export default {
                 headers: { 
                              'Authorization': `Bearer ${token.token}` 
                 }}
-            ).then(() => location.reload())
+            )
+            .then(() => location.reload())
         },
+        
         deleteButton(id, commentId, Idcommenter) {
             const commenterId = Idcommenter
             const comment = commentId
@@ -66,8 +83,10 @@ export default {
                 commenterId: commenterId,
                 userId: userId
             }
-            }).then(() => location.reload())
+            })
+            .then(() => location.reload())
         },
+
         routeModifyComment(id, commentId, commentText) {
             this.$router.push(`/modifyComment/${id}`)
             const data = {
@@ -75,14 +94,6 @@ export default {
                 commenterText: commentText
             }
             localStorage.setItem('comment', JSON.stringify(data))
-        },
-        auth(postUserId){
-            const userId = JSON.parse(localStorage.getItem('user')).userId
-            if (postUserId == userId) {
-                return true
-            } else {
-                return false
-            }
         }
     }
        
@@ -125,4 +136,11 @@ export default {
 .delete_commenter {
     align-self: flex-end;
 }
+
+.submitComment {
+   background-color: #FFD7D7;
+   border: none;
+   cursor: pointer;
+}
+
 </style>
