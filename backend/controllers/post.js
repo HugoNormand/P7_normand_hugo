@@ -2,7 +2,7 @@ const Post = require('../models/post')
 const fs = require('fs')
 
 exports.getAllPost = (req, res, next) => {
-    Post.find()
+    Post.find().sort({ postText: -1 })
     .then(posts => res.status(200).json(posts))
     .catch(error => res.status(400).json( { error }));
   }

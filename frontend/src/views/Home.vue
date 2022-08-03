@@ -29,6 +29,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-self: center;
-    width: 90%;
+    width: 70%;
+    margin-top: 10px;
 }
 </style>

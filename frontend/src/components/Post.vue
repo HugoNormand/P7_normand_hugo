@@ -41,7 +41,8 @@ export default {
     },
 
     created() {
-        this.updatePosts()
+        this.updatePosts(),
+        this.userInfo()
     },
 
     methods: {
@@ -82,6 +83,12 @@ export default {
         
         routeModifyPost(id) {
             this.$router.push(`/modifyPost/${id}`)
+        },
+
+        userInfo() {
+            const id = JSON.parse(localStorage.getItem('user')).userId
+            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
+            .then((data) => console.log(data))
         }
     }
 }
