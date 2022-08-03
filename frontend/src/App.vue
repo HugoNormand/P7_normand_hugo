@@ -1,15 +1,8 @@
 <script>
 import { RouterLink, RouterView } from 'vue-router'
-import Header from './components/Header.vue'
-export default {
-  components: {
-    Header
-  }
-}
 </script>
 
 <template> 
-<Header />
 <RouterView></RouterView>
 </template>
 
@@ -25,5 +18,10 @@ body {
 
 textarea {
   resize: none;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
 }
 </style>
