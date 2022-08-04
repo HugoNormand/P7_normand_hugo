@@ -5,7 +5,7 @@
         <div class="post_text">
             <textarea class="modify_text" placeholder="Modifie ton post ici" v-model="ModifyPost.postText"></textarea>
         </div>
-        <div class="submit_photo" id="remove">
+        <div class="submit_photo_modify" id="remove">
             <input type="file" name="images" @change="onFileSelected" ref="file" />
             <div v-if="ModifyPost.imageUrl" class="modify_image" id="child-remove"><img :src="ModifyPost.imageUrl" alt="image du post" class="img_ModifyPost"></div>
             <div v-if="data.file"><img :src="data.newImg.src" alt="image du post" class="img_ModifyPost"></div>
@@ -140,7 +140,7 @@ export default {
     align-self: center
 }
 
-.submit_photo {
+.submit_photo_modify {
     width: 90%;
 
 }

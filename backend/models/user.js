@@ -1,3 +1,4 @@
+const { url } = require('inspector');
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
@@ -6,7 +7,7 @@ const userSchema = mongoose.Schema({
     isAdmin: { type: Boolean, default: false},
     username: { type: String, required: true, unique: true } ,
     password: { type: String, required: true } ,
-    profilImage: { type: String, default: `` }, 
+    profilImage: { type: String, default: 'https://i.stack.imgur.com/34AD2.jpg' }, 
 });
 
 userSchema.plugin(uniqueValidator);

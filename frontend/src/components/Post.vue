@@ -1,11 +1,11 @@
 <template>
     <div v-for="post in posts" class="block_post" >
-        <div class="block_profil_photo">
-            
-        </div>
         <div class="block_right">
             <div class="block_profil">
-                <h3>{{post.username}}</h3>
+                <div class="img_profil_username">
+                   <img class="profil_img_user" v-bind:src="this.profil.profilImage" alt="image de profil de l'utilisateur">
+                   <h3>{{post.username}}</h3> 
+                </div>
                 <div>
                     <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)"><span style="font-size: 20px; color: white"><i class="fa-solid fa-trash"></i></span></button>
                     <button class="modify_button" v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)"><span style="font-size: 20px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
@@ -36,7 +36,8 @@ export default {
 
     data() {
        return {
-           posts: [] 
+           posts: [],
+           profil: [] 
        } 
     },
 
@@ -88,7 +89,7 @@ export default {
         userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
-            .then((data) => console.log(data))
+            .then((res) => {this.profil = res.data})
         }
     }
 }
@@ -113,6 +114,19 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.img_profil_username {
+    display: flex;
+}
+
+.profil_img_user{
+    width: 40%;
+    border-radius: 300px;
+    height: 40px;
+    align-self: center;
+    margin-right: 8px;
+    object-fit: fill;
 }
 
 .delete_button {

@@ -1,14 +1,14 @@
 <template>
     <form @submit.prevent="createPost" class="block_CreatePost">
-      <div class="photo_profil"></div>
       <div class="post_text">
+          <img class="profilPic_createPost" v-bind:src="this.profil.profilImage">
           <textarea class="text_style" placeholder="Quoi de neuf ?" v-model="postData.postText"></textarea>
-          <button class="send_button_create_post"><span class="icon_send" style="font-size: 25px"><i class="fa-regular fa-paper-plane"></i></span></button>
-      </div>
-      <div class="submit_photo">
-          <span class="icon_choose_file" style="font-size: 25px"><i class="fa-solid fa-photo-film"></i>
-          <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id"/>
-          </span>  
+          <div class="submit_photo">
+            <span class="icon_choose_file" style="font-size: 25px"><i class="fa-solid fa-photo-film"></i>
+            <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id"/>
+            </span>  
+            <button class="send_button_create_post"><span class="icon_send" style="font-size: 25px"><i class="fa-regular fa-paper-plane"></i></span></button>
+          </div>
       </div>
       <div v-if="postData.file" class="image_apparition">
            <button class= "remove_img_createPost" v-if="postData.file" v-on:click="removeFileSelect"><span class="icon_delete_img"><i class="fa-solid fa-circle-xmark"></i></span></button>
@@ -28,9 +28,14 @@ export default {
                file: '',
                newImg: '',
                msgError: ''
-           }     
+           }, 
+           profil : []    
        }
     },
+    created() {
+        this.userInfo()
+    },
+
     methods: {
         onFileSelected() {
              this.postData.file = this.$refs.file.files[0];
@@ -64,6 +69,12 @@ export default {
                 this.postData.msgError = 'Veuillez renseigner un des champs'
             }    
         },
+
+        userInfo() {
+            const id = JSON.parse(localStorage.getItem('user')).userId
+            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
+            .then((res) => {this.profil = res.data})
+        }
     }       
     }
 </script>
@@ -84,8 +95,29 @@ export default {
 }
 
 .post_text {
-    width: 90%;
+    width: 95%;
     display: flex;
+    margin-bottom: 30px;
+    margin-right: -40px;
+    margin-top: 8px;
+}
+
+.profilPic_createPost{
+    width: 10%;
+    height: 40px;
+    border-radius: 200px;
+    border: 2px solid #FFD7D7;
+    margin-top: 8px;
+    margin-right: 10px;
+    margin-left: -10px;
+}
+
+.submit_photo {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-top: 5px;
+    width: 20%;
 }
 
 .text_style {
@@ -96,20 +128,17 @@ export default {
     height: 100px;
 }
 
-.submit_photo {
-    margin-top: 5px;
-}
-
 .image_apparition {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
     height: 300px;
-    margin-bottom: 40px;
+    margin-bottom: 70px;
 }
 
 .img_createPost {
-    width: 100%;
+    width: 90%;
     height: 300px;
     object-fit: fill;
     border-radius: 5px;
@@ -120,7 +149,7 @@ export default {
     background-color: #4E5166;
     border: none;
     cursor: pointer;
-    align-self: flex-end;
+    align-self: flex-start;
 }
 
 .icon_send {
@@ -139,20 +168,20 @@ export default {
 }
 
 .input_img_post{
-    width: 100px;
     height: 50px;
     opacity: 0;
     cursor: pointer;
     position: relative;
-    right: 60px;
+    right: 35px;
     bottom: 20px;
 }
 
 .icon_choose_file {
-    position: relative;
-    left: 45px;
+    display: flex;
+    height: 40px;
     color: white;
     transition: color 0.3s;
+    margin-left: 5px;
 }
 
 .icon_choose_file:hover {
