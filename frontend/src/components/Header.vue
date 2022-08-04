@@ -18,15 +18,10 @@ export default {
 
 <style>
 .block_groupomania {
-    width: 100%;
-    border-bottom: 1px solid #4E5166;
+    width: 135%;
     margin-bottom: 10px;
     padding: 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    box-shadow: 5px 2px 5px 0px #4E5166;
-
 }
 
 .img_groupomania {

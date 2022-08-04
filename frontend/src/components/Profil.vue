@@ -27,6 +27,14 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    background-color: #FFD7D7;
+    border: solid #4E5166;
+    box-shadow: 1px 1px 1px 1px #4E5166;
+    border-radius: 5px;
+    height: 50px;
+    align-self: center;
+    margin-right: 5px;
+    padding-left: 10px;
 }
 
 .buttonLogout {

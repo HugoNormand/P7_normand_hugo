@@ -1,9 +1,13 @@
 <template>
+        <div class="usersLike_length">
+           <span v-if="usersLiked.length > 0" class="icon_heart_users"><i class="fa-solid fa-heart"></i></span>
+           <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
+       </div>
    <div class="button_like">
        <div class="like_block">
             <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)"><span class="thumbs_up_like"><i class="fa-regular fa-thumbs-up"></i></span></button>
-            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)"><span style="font-size: 25px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
-            <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
+            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)"><span style="font-size: 20px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
+            <p class="Like_text">J'aime</p>
        </div>
         
         <div class="commentaire_length">
@@ -79,7 +83,7 @@ export default {
     height: 30px;
     width: 20px;
     align-self: center;
-    margin-right: 20px;
+    margin-right: 15px;
     background-color: #4E5166;
     border: none;
     cursor: pointer;
@@ -89,6 +93,20 @@ export default {
 
 .like_block {
     display: flex;
+    margin: 5px;
+    height: 30px;
+    padding: 5px;
+    transition: box-shadow 0.3s;
+    border-radius: 5px;
+}
+
+.like_block:hover {
+    box-shadow: 1px 1px 1px 1px black;
+    transition: box-shadow 0.3s;
+}
+
+.Like_text {
+    align-self: center;
 }
 
 .commentaire_length{
@@ -96,7 +114,7 @@ export default {
 }
 
 .thumbs_up_like {
-    font-size: 25px;
+    font-size: 20px;
     color: white;
     transition: color 0.3s;
 }
@@ -104,5 +122,15 @@ export default {
 .thumbs_up_like:hover {
     color: #FFD7D7;
     transition: color 0.3s;
+}
+
+.usersLike_length {
+    display: flex;
+}
+
+.icon_heart_users {
+    align-self: center;
+    margin-right: 5px;
+    color: #FFD7D7;
 }
 </style>

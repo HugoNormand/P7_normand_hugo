@@ -71,6 +71,7 @@ export default {
 <style>
 .block_CreatePost {
     margin: 20px;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
     align-self: center;
@@ -79,10 +80,11 @@ export default {
     box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.36);
     border: solid #4E5166;
     border-radius: 5px;
+    width: 60%;
 }
 
 .post_text {
-    width: 80%;
+    width: 90%;
     display: flex;
 }
 

@@ -14,6 +14,7 @@ body {
   background-color: #FFD7D7;
   font-family: 'Lato';
   color: white;
+  margin: inherit;
 }
 
 textarea {

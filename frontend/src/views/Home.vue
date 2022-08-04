@@ -1,8 +1,11 @@
 <template>
-    <Header />
-    <main class="all">
+    <header>
+        <Header />
         <Profil />
+    </header>
+    <main class="all">
         <CreatePost />
+        <p class="recent_publication">Publications récentes</p>
         <Post />
     </main>
 </template>
@@ -30,6 +33,24 @@ export default {
     flex-direction: column;
     align-self: center;
     width: 70%;
-    margin-top: 10px;
+    padding-top: 15px;
+    background-color: white;
 }
+
+header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid #4E5166;
+    margin-bottom: 40px;
+    background-color: white;
+}
+
+.recent_publication {
+    font-size: 20px;
+    margin-left: 10px;
+    color: #4E5166;
+    font-weight: bold;
+    border-bottom: solid #4E5166;
+}
+
 </style>
