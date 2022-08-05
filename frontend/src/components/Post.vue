@@ -89,7 +89,8 @@ export default {
         userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
-            .then((res) => {this.profil = res.data})
+            .then((res) => {this.profil = res.data
+                            console.log(res)})
         }
     }
 }

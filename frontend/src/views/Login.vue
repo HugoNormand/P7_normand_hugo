@@ -6,16 +6,16 @@
   <form @submit="accountConnexion" class="block_login">
     <h1>Login</h1>
     <p>Vous n'avez pas de compte ? <router-link to="/signup">Créer un compte</router-link></p>
-      <div class="form-group">
-        <label for="exampleInputEmail1">E-mail : </label>
-        <input type="email" v-model= "dataForm.email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Entrer son e-mail">
+      <div class="form_group">
+        <label class="email_text" for="exampleInputEmail1">E-mail : </label>
+        <input class="input_login_text" type="email" v-model= "dataForm.email" aria-describedby="emailHelp" placeholder="Entrer son e-mail">
       </div>
 
-     <div class="form-group">
-       <label for="exampleInputPassword1">Mot de passe : </label>
-       <input type="password" v-model= "dataForm.password" class="form-control" id="exampleInputPassword1" placeholder="Entrer son mot de passe">
+     <div class="form_group">
+       <label class="email_text" for="exampleInputPassword1">Mot de passe : </label>
+       <input class="input_login_text" type="password" v-model= "dataForm.password" placeholder="Entrer son mot de passe">
      </div>
-  <button type="submit" class="btn btn-primary">Connexion</button>
+  <button type="submit" class="btn_connexion_login">Connexion</button>
   <p v-if="this.msgError != ''" class="msgError_login">{{ this.msgError }}</p>
  </form>
 </div>
@@ -104,6 +104,46 @@ export default {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%); 
+}
+
+.form_group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.email_text{
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.input_login_text {
+ width: 130%;
+ height: 25px;
+ border: 1px solid #4E5166;
+ box-shadow: 1px 1px 1px 1px black;
+ border-radius: 5px
+} 
+
+.btn_connexion_login{
+  border: none;
+  margin-top: 15px;
+  width: 15%;
+  height: 30px;
+  margin-left: 20px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 5px;
+  transition: border 0.3s;
+  transition: box-shadow 0.1s;
+}
+
+.btn_connexion_login:hover {
+  background-color: #FFD7D7;
+  border: solid #4E5166;
+  transition: border 0.1s;
+  box-shadow: 1px 1px 1px 1px black;
+  transition: box-shadow 0.1s;
 }
 
 .msgError_login {
