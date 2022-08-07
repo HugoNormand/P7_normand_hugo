@@ -3,7 +3,7 @@
         <div class="block_right">
             <div class="block_profil">
                 <div class="img_profil_username">
-                   <img class="profil_img_user" v-bind:src="this.profil.profilImage" alt="image de profil de l'utilisateur">
+                   <img class="profil_img_user" v-bind:src="post.profilImage" alt="image de profil de l'utilisateur">
                    <h3>{{post.username}}</h3> 
                 </div>
                 <div>
@@ -36,14 +36,12 @@ export default {
 
     data() {
        return {
-           posts: [],
-           profil: [] 
+           posts: []
        } 
     },
 
     created() {
-        this.updatePosts(),
-        this.userInfo()
+        this.updatePosts()
     },
 
     methods: {
@@ -84,13 +82,6 @@ export default {
         
         routeModifyPost(id) {
             this.$router.push(`/modifyPost/${id}`)
-        },
-
-        userInfo() {
-            const id = JSON.parse(localStorage.getItem('user')).userId
-            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
-            .then((res) => {this.profil = res.data
-                            console.log(res)})
         }
     }
 }

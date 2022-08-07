@@ -7,15 +7,15 @@
     <h1>Login</h1>
     <p>Vous n'avez pas de compte ? <router-link to="/signup">Créer un compte</router-link></p>
       <div class="form_group">
-        <label class="email_text" for="exampleInputEmail1">E-mail : </label>
+        <label class="label_text" for="exampleInputEmail1">E-mail : </label>
         <input class="input_login_text" type="email" v-model= "dataForm.email" aria-describedby="emailHelp" placeholder="Entrer son e-mail">
       </div>
 
      <div class="form_group">
-       <label class="email_text" for="exampleInputPassword1">Mot de passe : </label>
+       <label class="label_text" for="exampleInputPassword1">Mot de passe : </label>
        <input class="input_login_text" type="password" v-model= "dataForm.password" placeholder="Entrer son mot de passe">
      </div>
-  <button type="submit" class="btn_connexion_login">Connexion</button>
+  <button type="submit" class="btn_connexion">Connexion</button>
   <p v-if="this.msgError != ''" class="msgError_login">{{ this.msgError }}</p>
  </form>
 </div>
@@ -112,7 +112,7 @@ export default {
   margin-bottom: 8px;
 }
 
-.email_text{
+.label_text{
   margin-bottom: 5px;
   font-size: 20px;
 }
@@ -125,7 +125,7 @@ export default {
  border-radius: 5px
 } 
 
-.btn_connexion_login{
+.btn_connexion {
   border: none;
   margin-top: 15px;
   width: 15%;
@@ -138,7 +138,7 @@ export default {
   transition: box-shadow 0.1s;
 }
 
-.btn_connexion_login:hover {
+.btn_connexion:hover {
   background-color: #FFD7D7;
   border: solid #4E5166;
   transition: border 0.1s;

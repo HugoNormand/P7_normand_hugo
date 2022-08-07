@@ -55,7 +55,8 @@ export default {
                 let post = {
                     postText: this.postData.postText,
                     userId: JSON.parse(localStorage.getItem('user')).userId,
-                    username: JSON.parse(localStorage.getItem('user')).username
+                    username: JSON.parse(localStorage.getItem('user')).username,
+                    profilImage: this.profil.profilImage
                 }
             formData.append('post', JSON.stringify(post))
             formData.append('image', this.postData.file)
@@ -73,7 +74,8 @@ export default {
         userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
-            .then((res) => {this.profil = res.data})
+            .then((res) => {this.profil = res.data, 
+            console.log(res.data.profilImage)})
         }
     }       
     }
