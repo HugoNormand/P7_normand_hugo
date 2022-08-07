@@ -28,4 +28,10 @@ export default {
     width: 30%;
     height: 70px;
 }
+
+@media (max-width: 500px) {
+    .img_groupomania {
+        width: 40%;
+    }
+}
 </style>

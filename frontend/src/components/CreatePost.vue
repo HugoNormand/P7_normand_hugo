@@ -212,4 +212,24 @@ export default {
     color: #FD2D01;
     transition: color 0.3s;
 }
+
+@media (max-width: 690px) {
+    .block_CreatePost{
+        width: 90%
+    }
+}
+
+@media (min-width:690px) and (max-width: 880px) {
+    .block_CreatePost{
+        width: 80%
+    }
+}
+
+@media (max-width: 400px) {
+    .profilPic_createPost {
+        display: none;
+    }
+}
+
+
 </style>

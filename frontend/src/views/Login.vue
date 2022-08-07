@@ -149,4 +149,30 @@ export default {
 .msgError_login {
   color: #FD2D01;
 }
+
+@media (max-width: 850px) {
+  .btn_connexion {
+    width: 30%;
+  }
+
+  .header_login {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 530px) {
+  .form_group {
+    align-self: flex-start;
+  }
+  .btn_connexion {
+    width: 50%;
+  }
+}
+
+@media (max-width: 305px) {
+  .input_login_text {
+    width: 100%;
+  }
+}
+
 </style>

@@ -4,7 +4,7 @@
             <img class="header_profil_pic" v-bind:src="this.profil.profilImage" alt="">
         </div>
         <div class="block_headerProfil">
-            <h2>{{ this.profilName }}</h2>
+            <h2 class="profilName_profil">{{ this.profilName }}</h2>
             <button class="buttonLogout" v-on:click="logOut()"><span style="font-size: 20px; color: #4E5166"><i class="fa-solid fa-right-from-bracket"></i></span></button> 
         </div>  
     </div>
@@ -85,5 +85,22 @@ export default {
 h2 {
     font-size: 20px;
     color: #4E5166;
+}
+
+@media (max-width: 500px) {
+    .profilName_profil {
+        display: none
+    }
+    .block_headerProfil {
+        padding: 0px;
+        margin-right: 10px;
+        height: 25px;
+    }
+    .header_profil_pic {
+        height: 35px
+    }
+    .buttonLogout {
+        height: 25px;
+    }
 }
 </style>

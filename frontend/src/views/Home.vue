@@ -53,4 +53,9 @@ header {
     border-bottom: solid #4E5166;
 }
 
+@media (max-width: 650px) {
+    .all {
+        width: 100%;
+    }
+}
 </style>

@@ -11,7 +11,7 @@
         <div class="submit_photo_modify" id="remove">
             <span class="icon_choose_file color_modify_icon" style="font-size: 25px"><i class="fa-solid fa-photo-film"></i></span>
             <input class="modify_choose_file" type="file" name="images" @change="onFileSelected" ref="file" />
-            <div v-if="ModifyPost.imageUrl" class="modify_image" id="child-remove"><img :src="ModifyPost.imageUrl" alt="image du post" class="img_ModifyPost"></div>
+            <div v-if="ModifyPost.imageUrl" id="child-remove"><img :src="ModifyPost.imageUrl" alt="image du post" class="img_ModifyPost"></div>
             <div v-if="data.file"><img :src="data.newImg.src" alt="image du post" class="img_ModifyPost"></div>
         </div>
         <button class="button_modifyPost">Modifier</button>
@@ -51,7 +51,10 @@ export default {
              let img = this.$refs.file.files[0]
              this.data.newImg = new Image(img.width, img.height)
              this.data.newImg.src = URL.createObjectURL(img)
+             const id = document.getElementById('child-remove')
+             id.remove(id.value)
         },
+        
         PostModify() {
             if (localStorage.getItem('admin')) {
                 if (this.data.file !== '') {
@@ -198,10 +201,6 @@ export default {
     cursor: pointer
 }
 
-
-.modify_image {
-    padding-top: 10px;
-}
 
 .img_ModifyPost {
     width: 100%;
