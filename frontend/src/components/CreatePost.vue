@@ -4,10 +4,10 @@
           <img class="profilPic_createPost" v-bind:src="this.profil.profilImage">
           <textarea class="text_style" placeholder="Quoi de neuf ?" v-model="postData.postText"></textarea>
           <div class="submit_photo">
-            <span class="icon_choose_file" style="font-size: 25px"><i class="fa-solid fa-photo-film"></i>
+            <span class="icon_choose_file"><i class="fa-solid fa-photo-film"></i>
             <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id"/>
             </span>  
-            <button class="send_button_create_post"><span class="icon_send" style="font-size: 25px"><i class="fa-regular fa-paper-plane"></i></span></button>
+            <button class="send_button_create_post"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
           </div>
       </div>
       <div v-if="postData.file" class="image_apparition">
@@ -155,6 +155,7 @@ export default {
 }
 
 .icon_send {
+    font-size: 25px;
     color: white;
     transition: color 0.3s;
 }
@@ -179,6 +180,7 @@ export default {
 }
 
 .icon_choose_file {
+    font-size: 25px;
     display: flex;
     height: 40px;
     color: white;
@@ -231,5 +233,12 @@ export default {
     }
 }
 
-
+@media (max-width: 280px) {
+    .icon_choose_file {
+        font-size: 20px;
+    }
+    .icon_send {
+        font-size: 20px;
+    }
+}
 </style>

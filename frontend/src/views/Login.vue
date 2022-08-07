@@ -13,7 +13,7 @@
 
      <div class="form_group">
        <label class="label_text" for="exampleInputPassword1">Mot de passe : </label>
-       <input class="input_login_text" type="password" v-model= "dataForm.password" placeholder="Entrer son mot de passe">
+       <input class="input_login_text" type="password" v-model= "dataForm.password"  aria-describedby="passwordHelp" placeholder="Entrer son mot de passe">
      </div>
   <button type="submit" class="btn_connexion">Connexion</button>
   <p v-if="this.msgError != ''" class="msgError_login">{{ this.msgError }}</p>

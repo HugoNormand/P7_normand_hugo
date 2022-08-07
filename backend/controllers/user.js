@@ -62,4 +62,18 @@ exports.getInfo = (req, res, next) => {
     user.findOne({ _id: req.params.id})
     .then(user => res.status(200).json(user))
     .catch(error => res.status(404).json({ error }));
+};
+
+exports.modifyProfilPic = (req, res, next) => {
+    user.findOne({ _id: req.params.id })
+    .then((user) => {
+        const imgProfil = 
+            {
+                profilImage: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            }
+            user
+            .updateOne({ _id: req.params.id }, { ...imgProfil, _id: req.params.id })
+            .then(() => res.status(200).json({message: 'Photo modifié!'}))
+            .catch(error => res.status(400).json({ error }))    
+    })
 }

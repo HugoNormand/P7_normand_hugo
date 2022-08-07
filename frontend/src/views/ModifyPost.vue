@@ -204,7 +204,7 @@ export default {
 
 .img_ModifyPost {
     width: 100%;
-    height: 300px;
+    height: 200px;
     object-fit: fill;
     border-radius: 5px;
     box-shadow: 5px 5px 10px 2px rgba(74, 74, 74, 0.36);
