@@ -3,9 +3,9 @@
         <div class="block_header_profil_pic">
             <img class="header_profil_pic" v-bind:src="this.profil.profilImage" alt="">
         </div>
-        <div class="block_headerProfil">
+        <div class="block_headerProfil" v-on:click="logOut()">
             <h2 class="profilName_profil">{{ this.profilName }}</h2>
-            <button class="buttonLogout" v-on:click="logOut()"><span style="font-size: 20px; color: #4E5166"><i class="fa-solid fa-right-from-bracket"></i></span></button> 
+            <button class="buttonLogout"><span style="font-size: 20px; color: #4E5166"><i class="fa-solid fa-right-from-bracket"></i></span></button> 
         </div>  
     </div>
       
@@ -60,6 +60,7 @@ export default {
     align-self: center;
     margin-right: 5px;
     padding-left: 10px;
+    cursor: pointer;
 }
 
 .block_header_profil_pic {
@@ -95,6 +96,7 @@ h2 {
         padding: 0px;
         margin-right: 10px;
         height: 25px;
+        cursor: pointer;
     }
     .header_profil_pic {
         height: 35px

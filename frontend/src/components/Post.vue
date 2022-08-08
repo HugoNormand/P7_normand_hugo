@@ -148,7 +148,7 @@ export default {
 .image_post {
     width: 100%;
     height: 300px;
-    object-fit: fill;
+    object-fit: contain;
     border-radius: 5px;
     box-shadow: 5px 5px 10px 2px rgba(74, 74, 74, 0.36);
 }

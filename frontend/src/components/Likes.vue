@@ -100,10 +100,6 @@ export default {
     border-radius: 5px;
 }
 
-.like_block:hover {
-    box-shadow: 1px 1px 1px 1px black;
-    transition: box-shadow 0.3s;
-}
 
 .Like_text {
     align-self: center;
