@@ -1,11 +1,11 @@
 <template>
     <div class="block_header_profil_name">
         <div class="block_header_profil_pic">
-            <img class="header_profil_pic" v-bind:src="this.profil.profilImage" alt="">
+            <img class="header_profil_pic" v-bind:src="this.profil.profilImage" v-on:click="modifyProfilRoute()" alt="Photo de profil de l'utilisateur">
         </div>
         <div class="block_headerProfil" v-on:click="logOut()">
-            <h2 class="profilName_profil">{{ this.profilName }}</h2>
-            <button class="buttonLogout"><span style="font-size: 20px; color: #4E5166"><i class="fa-solid fa-right-from-bracket"></i></span></button> 
+            <h1 class="profilName_profil">{{ this.profilName }}</h1>
+            <button class="buttonLogout" aria-label="Boutton Logout" title="Boutton Logout"><span style="font-size: 20px; color: #4E5166"><i class="fa-solid fa-right-from-bracket"></i></span></button>
         </div>  
     </div>
       
@@ -35,7 +35,12 @@ export default {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
             .then((res) => {this.profil = res.data})
-        }
+        },
+
+         modifyProfilRoute() {
+             const id = JSON.parse(localStorage.getItem('user')).userId
+             this.$router.push(`/modifyProfil/${id}`)
+         }
     }
 }
 </script>
@@ -66,6 +71,7 @@ export default {
 .block_header_profil_pic {
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .header_profil_pic {
@@ -83,7 +89,7 @@ export default {
     cursor: pointer;
 }
 
-h2 {
+.profilName_profil {
     font-size: 20px;
     color: #4E5166;
 }

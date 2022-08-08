@@ -1,12 +1,12 @@
 <template>
         <div class="usersLike_length">
-           <span v-if="usersLiked.length > 0" class="icon_heart_users"><i class="fa-solid fa-heart"></i></span>
+           <span v-if="usersLiked.length > 0" class="icon_heart_users" aria-label="Icon coeur"><i class="fa-solid fa-heart"></i></span>
            <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
        </div>
    <div class="button_like">
        <div class="like_block">
-            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)"><span class="thumbs_up_like"><i class="fa-regular fa-thumbs-up"></i></span></button>
-            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)"><span style="font-size: 20px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
+            <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)" aria-label="Boutton Like" title="Boutton Like"><span class="thumbs_up_like"><i class="fa-regular fa-thumbs-up"></i></span></button>
+            <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)" aria-label="Boutton Dislike" title="Boutton Dislike"><span style="font-size: 20px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
             <p class="Like_text">J'aime</p>
        </div>
         
@@ -36,7 +36,6 @@ export default {
     methods: {
         LikeUpdate(id) {
             this.like = 1
-            console.log(this.like)
             this.buttonIsDislike = true
             let body = {
                 like: +1,
@@ -46,12 +45,11 @@ export default {
             axios.post(`http://localhost:3000/api/post/${id}/like`, body,
             {   headers: 
                 { 'Authorization': `Bearer ${token.token}`}})
-                .then(()=> location.reload())
+                .then(()=> this.$emit("getPosts"))
         },
 
         DislikeUpdate(id) {
             this.like = 0
-            console.log(this.like)
             this.buttonIsDislike = false,
             this.buttonIsLike = true
             let body = {
@@ -62,7 +60,7 @@ export default {
             axios.post(`http://localhost:3000/api/post/${id}/like`, body,
             {   headers: 
                 { 'Authorization': `Bearer ${token.token}`}})
-                .then(()=> location.reload())
+                .then(()=> this.$emit("getPosts"))
         }
     }
        

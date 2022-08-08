@@ -26,7 +26,6 @@ exports.createPost = (req, res, next) => {
         usersComment: []
       })
     }
-    console.log(post)
     post.save()
     .then(() => res.status(201).json({ message : 'Post enregistré !'}))
     .catch(error => res.status(400).json({ error }));

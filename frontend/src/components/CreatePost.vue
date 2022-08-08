@@ -1,17 +1,17 @@
 <template>
     <form @submit.prevent="createPost" class="block_CreatePost">
       <div class="post_text">
-          <img class="profilPic_createPost" v-bind:src="this.profil.profilImage">
-          <textarea class="text_style" placeholder="Quoi de neuf ?" v-model="postData.postText"></textarea>
+          <img class="profilPic_createPost" v-bind:src="this.profil.profilImage" alt="Photo de profil utilisateur">
+          <textarea class="text_style" placeholder="Quoi de neuf ?" v-model="postData.postText" aria-label="Zone de texte post"></textarea>
           <div class="submit_photo">
-            <span class="icon_choose_file"><i class="fa-solid fa-photo-film"></i>
-            <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id"/>
+            <span class="icon_choose_file" aria-label="Boutton selection de fichier"><i class="fa-solid fa-photo-film"></i>
+            <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id" aria-label="Boutton selection de fichier"/>
             </span>  
-            <button class="send_button_create_post"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
+            <button class="send_button_create_post" aria-label="Boutton poster" title="Post button"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
           </div>
       </div>
       <div v-if="postData.file" class="image_apparition">
-           <button class= "remove_img_createPost" v-if="postData.file" v-on:click="removeFileSelect"><span class="icon_delete_img"><i class="fa-solid fa-circle-xmark"></i></span></button>
+           <button class= "remove_img_createPost" v-if="postData.file" v-on:click="removeFileSelect" aria-label="Boutton supprimer image" title="Boutton supprimer image"><span class="icon_delete_img"><i class="fa-solid fa-circle-xmark"></i></span></button>
            <img :src="postData.newImg.src" :alt="postData.file.name" class="img_createPost">
       </div>
       <p class="msg_error_post" v-if="this.postData.msgError !== ''">{{postData.msgError }}</p>
@@ -50,7 +50,10 @@ export default {
         },
 
         createPost() {
-            if (this.postData.postText || this.postData.file !== '') {
+            if (this.postData.postText == ' ') {
+                this.postData.msgError = 'Veuillez renseigner un des champs'
+            }    
+            else if (this.postData.postText || this.postData.file !== '') {
                 let formData = new FormData()
                 let post = {
                     postText: this.postData.postText,
@@ -74,8 +77,7 @@ export default {
         userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
-            .then((res) => {this.profil = res.data, 
-            console.log(res.data.profilImage)})
+            .then((res) => {this.profil = res.data})
         }
     }       
     }

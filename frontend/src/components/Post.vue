@@ -3,24 +3,23 @@
         <div class="block_right">
             <div class="block_profil">
                 <div class="img_profil_username">
-                   <img class="profil_img_user" v-bind:src="post.profilImage" alt="image de profil de l'utilisateur">
+                   <img class="profil_img_user" v-bind:src="post.profilImage" alt="Photo de profil du posteur">
                    <h3>{{post.username}}</h3> 
                 </div>
                 <div>
-                    <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)"><span style="font-size: 20px; color: white"><i class="fa-solid fa-trash"></i></span></button>
-                    <button class="modify_button" v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)"><span style="font-size: 20px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
+                    <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)" aria-label="Boutton supprimer post" title="Boutton supprimer post"><span style="font-size: 20px; color: white"><i class="fa-solid fa-trash"></i></span></button>
+                    <button class="modify_button" v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)" aria-label="Boutton modifier post" title="Boutton modifier post"><span style="font-size: 20px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
                 </div>
             </div>
             <div class="block_texte">
                 <p>{{post.postText}}</p>
             </div>
         </div>
-            <div class="block_image" v-if="post.imageUrl">
-                <img class="image_post" v-bind:src="post.imageUrl">
-            </div>
-        
-        <Likes :postId="post._id" :usersLiked="post.usersLiked" :comment="post.usersComment"/>
-        <Comments :postId="post._id" :comment="post.usersComment"/>
+        <div class="block_image" v-if="post.imageUrl">
+             <img class="image_post" v-bind:src="post.imageUrl" alt="Image du post">
+        </div> 
+        <Likes :postId="post._id" :usersLiked="post.usersLiked" :comment="post.usersComment" @getPosts="updatePosts"/>
+        <Comments :postId="post._id" :comment="post.usersComment" @getPosts="updatePosts"/>
     </div>
 </template>
 
