@@ -1,15 +1,17 @@
 <template>
-        <div class="usersLike_length">
-           <span v-if="usersLiked.length > 0" class="icon_heart_users" aria-label="Icon coeur"><i class="fa-solid fa-heart"></i></span>
-           <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
-       </div>
+   <!-- affichage nombre de j'aime ainsi que l'icon coeur -->
+   <div class="usersLike_length">
+        <span v-if="usersLiked.length > 0" class="icon_heart_users" aria-label="Icon coeur"><i class="fa-solid fa-heart"></i></span>
+        <p v-if="usersLiked.length > 0">{{usersLiked.length}}</p>
+   </div>
+   <!-- boutton j'aime  -->
    <div class="button_like">
        <div class="like_block">
             <button class="LikeButton"  v-if="!usersLiked.find(e => e == userId)" v-on:click="LikeUpdate(postId)" aria-label="Boutton Like" title="Boutton Like"><span class="thumbs_up_like"><i class="fa-regular fa-thumbs-up"></i></span></button>
             <button class="LikeButton"  v-else  v-on:click="DislikeUpdate(postId)" aria-label="Boutton Dislike" title="Boutton Dislike"><span style="font-size: 20px; color: #FFD7D7;"><i class="fa-regular fa-thumbs-up"></i></span></button>
             <p class="Like_text">J'aime</p>
        </div>
-        
+        <!-- nombres de commentaires sur le post -->
         <div class="commentaire_length">
             <p v-if="comment.length == 1">{{comment.length + ' ' + 'commentaire'}}</p> 
             <p v-if="comment.length > 1">{{comment.length + ' ' + 'commentaires'}}</p> 
@@ -34,6 +36,7 @@ export default {
         }     
     },
     methods: {
+        /* fonction like qu'on envoi à l'API quand l'utilisateur like */
         LikeUpdate(id) {
             this.like = 1
             this.buttonIsDislike = true
@@ -47,7 +50,7 @@ export default {
                 { 'Authorization': `Bearer ${token.token}`}})
                 .then(()=> this.$emit("getPosts"))
         },
-
+        /* fonction like qu'on envoi à l'API quand l'utilisateur Dislike */
         DislikeUpdate(id) {
             this.like = 0
             this.buttonIsDislike = false,

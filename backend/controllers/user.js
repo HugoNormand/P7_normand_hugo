@@ -4,14 +4,16 @@ const jwt = require('jsonwebtoken')
 
 
 exports.signup = (req, res, next) => {
-    user.findOne({ username : req.body.username })
+    user.findOne({ email : req.body.email })
     .then((result) => {
-        console.log("result is: ", result)
+        /* si l'email existe déjà on renvoi un message d'erreur */
         if(result) {
-            throw "username already exist"
+            throw "email already exist"
         } else {
+            /* on hash le mot de passe pour la sécurité */
             bcrypt.hash(req.body.password, 10)
         .then(hash => {
+            /* on crée un nouveau user avec ses informations reçues */
             const newUser = new user({
                 email: req.body.email,
                 username: req.body.username,
@@ -33,14 +35,17 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     user.findOne({ email : req.body.email })
         .then(currentUser => {
+            /* si l'utilisateur n'est pas trouvé on renvoi une erreur */
             if (!currentUser) {
                 return res.status(401).json({ error: 'Utilisateur non trouvé !'})
             }
+            /* on compare le mot de passe rentré grâce a bcrypt */
             bcrypt.compare(req.body.password, currentUser.password)
                 .then(valid => {
                     if (!valid) {
                         return res.status(401).json( { error : 'Mot de passe incorrect !'})
                     }
+                    /* on lui crée un token pour l'autorisation d'accès */
                     res.status(200).json({
                         userId: currentUser._id,
                         username: currentUser.username,
@@ -59,6 +64,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.getInfo = (req, res, next) => {
+    /* méthode pour récupérer les infos de l'utilisateur */
     user.findOne({ _id: req.params.id})
     .then(user => res.status(200).json(user))
     .catch(error => res.status(404).json({ error }));
@@ -67,6 +73,7 @@ exports.getInfo = (req, res, next) => {
 exports.modifyProfilPic = (req, res, next) => {
     user.findOne({ _id: req.params.id })
     .then((user) => {
+        /* on modifie la photo de profil par default par la photo de profil reçu */
         const imgProfil = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
         user.profilImage =  imgProfil
         user.save((err) => {
@@ -74,5 +81,5 @@ exports.modifyProfilPic = (req, res, next) => {
             return res.status(500).send(err);
           })
     })
-    .catch
+    .catch(error => res.status(404).json({ error }))
 }

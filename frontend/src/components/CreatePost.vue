@@ -1,19 +1,24 @@
 <template>
     <form @submit.prevent="createPost" class="block_CreatePost">
-      <div class="post_text">
+     <div class="post_text">
+          <!-- photo de profil de l'utilisateur, zone de texte pour post -->
           <img class="profilPic_createPost" v-bind:src="this.profil.profilImage" alt="Photo de profil utilisateur">
           <textarea class="text_style" placeholder="Quoi de neuf ?" v-model="postData.postText" aria-label="Zone de texte post"></textarea>
           <div class="submit_photo">
+            <!-- icon choisir image , icon poster -->  
             <span class="icon_choose_file" aria-label="Boutton selection de fichier"><i class="fa-solid fa-photo-film"></i>
             <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id" aria-label="Boutton selection de fichier"/>
             </span>  
             <button class="send_button_create_post" aria-label="Boutton poster" title="Post button"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
           </div>
       </div>
+      <!-- affichage de l'image si l'utilisateur poste une image -->
       <div v-if="postData.file" class="image_apparition">
+           <!-- boutton pour supprimer image , image choisi -->
            <button class= "remove_img_createPost" v-if="postData.file" v-on:click="removeFileSelect" aria-label="Boutton supprimer image" title="Boutton supprimer image"><span class="icon_delete_img"><i class="fa-solid fa-circle-xmark"></i></span></button>
            <img :src="postData.newImg.src" :alt="postData.file.name" class="img_createPost">
       </div>
+      <!-- message d'erreur si le post est vide -->
       <p class="msg_error_post" v-if="this.postData.msgError !== ''">{{postData.msgError }}</p>
     </form>
 </template>
@@ -37,23 +42,26 @@ export default {
     },
 
     methods: {
+        /* on crée un URL pour la nouvelle image de profil, pour pouvoir l'afficher */
         onFileSelected() {
              this.postData.file = this.$refs.file.files[0];
              let img = this.$refs.file.files[0]
              this.postData.newImg = new Image(img.width, img.height)
              this.postData.newImg.src = URL.createObjectURL(img)
         },
-
+        /* fonction qui supprime l'image sélectionnée */
         removeFileSelect() {
              const id = document.getElementById('file_id')
              id.remove(id.value)
         },
-
+        /* fonction création de post */
         createPost() {
+            /* si le texte est vide on renvoi un message d'erreur */
             if (this.postData.postText == ' ') {
                 this.postData.msgError = 'Veuillez renseigner un des champs'
             }    
             else if (this.postData.postText || this.postData.file !== '') {
+                /* on envoie les données sous formData à l'API */
                 let formData = new FormData()
                 let post = {
                     postText: this.postData.postText,
@@ -73,7 +81,7 @@ export default {
                 this.postData.msgError = 'Veuillez renseigner un des champs'
             }    
         },
-
+        /* on récupère les infos de l'utilisateur pour afficher sa photo de profil */
         userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)

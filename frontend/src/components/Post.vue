@@ -1,11 +1,14 @@
 <template>
     <div v-for="post in posts" class="block_post" >
         <div class="block_right">
+            <!-- block profil avec username et photo de profil ainsi que les bouttons supprimer et modifier -->    
             <div class="block_profil">
+                <!-- partie username , photo de profil -->
                 <div class="img_profil_username">
                    <img class="profil_img_user" v-bind:src="post.profilImage" alt="Photo de profil du posteur">
                    <h3>{{post.username}}</h3> 
                 </div>
+                <!-- partie bouttons, supprimer et modifier -->
                 <div>
                     <button class="delete_button" v-if="auth(post.userId) || admin()" v-on:click="deletePosts(post._id)" aria-label="Boutton supprimer post" title="Boutton supprimer post"><span style="font-size: 20px; color: white"><i class="fa-solid fa-trash"></i></span></button>
                     <button class="modify_button" v-if="auth(post.userId) || admin()" v-on:click="routeModifyPost(post._id)" aria-label="Boutton modifier post" title="Boutton modifier post"><span style="font-size: 20px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
@@ -15,9 +18,11 @@
                 <p>{{post.postText}}</p>
             </div>
         </div>
+        <!-- block image du post si image  -->
         <div class="block_image" v-if="post.imageUrl">
              <img class="image_post" v-bind:src="post.imageUrl" alt="Image du post">
         </div> 
+        <!-- composant Likes et Comments -->
         <Likes :postId="post._id" :usersLiked="post.usersLiked" :comment="post.usersComment" @getPosts="updatePosts"/>
         <Comments :postId="post._id" :comment="post.usersComment" @getPosts="updatePosts"/>
     </div>
@@ -45,7 +50,9 @@ export default {
     },
 
     methods: {
+        /* fonction auth pour afficher les bouttons que si l'utilisateur est le créateur du post */
         auth(postUserId){
+            /* vérification avec le localStorage */
             const userId = JSON.parse(localStorage.getItem('user')).userId
             if (postUserId == userId) {
                 return true
@@ -53,13 +60,14 @@ export default {
                 return false
             }
         },
-
+        /* vérification pour savoir si l'utilisateur est l'admin et ainsi pouvoir supprimer ou modifier les posts */
         admin() {
+            /* vérification avec le localstorage admin */
            if (localStorage.getItem('admin')) {
                return true
            }
         },
-
+        /* affichage des posts avec GET */
         updatePosts(){
             const token = JSON.parse(localStorage.getItem('user'))
             axios.get("http://localhost:3000/api/post", {
@@ -70,7 +78,7 @@ export default {
             .then((res) => {this.posts = res.data})
             .catch(erreur => console.log(erreur))
         },
-
+        /* fonction pour supprimer le post */
         deletePosts(id){
                 const token = JSON.parse(localStorage.getItem('user'))
                 axios.delete("http://localhost:3000/api/post/"+id, {
@@ -79,10 +87,10 @@ export default {
                     }})
                     .then(() => this.updatePosts())
         },
-        
+        /* route qui mène a la page modifyPost avec l'id du post dans l'URL */
         routeModifyPost(id) {
             this.$router.push(`/modifyPost/${id}`)
-        },
+        }
     }
 }
 </script>

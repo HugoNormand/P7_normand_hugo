@@ -1,14 +1,15 @@
 <template>
     <div class="block_header_profil_name">
+        <!-- affichage photo de profil de l'utilisateur -->
         <div class="block_header_profil_pic">
             <img class="header_profil_pic" v-bind:src="this.profil.profilImage" v-on:click="modifyProfilRoute()" alt="Photo de profil de l'utilisateur">
         </div>
+        <!-- boutton pour se logout -->
         <div class="block_headerProfil" v-on:click="logOut()">
             <h1 class="profilName_profil">{{ this.profilName }}</h1>
             <button class="buttonLogout" aria-label="Boutton Logout" title="Boutton Logout"><span style="font-size: 20px; color: #4E5166"><i class="fa-solid fa-right-from-bracket"></i></span></button>
         </div>  
-    </div>
-      
+    </div>     
 </template>
 
 <script>
@@ -26,18 +27,19 @@ export default {
     },
 
     methods: {
+        /* fonction pour se logout en supprimant le localstorage et renvoyant sur la page Login */
         logOut(){
             localStorage.clear();
             this.$router.push("/login")
         },
-
-         userInfo() {
+        /* on récupère les infos utilisateurs pour la photo de profil */
+        userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
             .then((res) => {this.profil = res.data})
         },
-
-         modifyProfilRoute() {
+        /* fonction qui mène a la page modifyProfil avec récupération de l'ID */
+        modifyProfilRoute() {
              const id = JSON.parse(localStorage.getItem('user')).userId
              this.$router.push(`/modifyProfil/${id}`)
          }

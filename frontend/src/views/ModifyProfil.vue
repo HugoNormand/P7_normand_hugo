@@ -4,23 +4,28 @@
 </header>
 <h1 class="titre_modifyProfil">Modifie ta photo de profil</h1>
 <main class="block_modifyProfil">
+    <!-- photo de profil de l'utilisateur -->
     <section class="actual_profil_pic">
-        <img id="img_profilPic_delete" class="img_profilPic" v-bind:src="this.profil.profilImage">
+        <img id="img_profilPic_delete" class="img_profilPic" v-bind:src="this.profil.profilImage" alt="photo de profil utilisateur">
     </section>
+    <!-- nouvelle photo de profil de l'utilisateur -->
     <section class="actual_profil_pic" v-if="data.file">
         <img :src="data.newImg.src" alt="image du post" class="img_profilPic">
     </section>
     <p class="username_modifyProfil">{{ this.profil.username}}</p>
+    <!-- icon choisir une nouvelle image -->
     <div class="block_choose_file_modifyProfil">
-        <label class="input_file_modifyProfil">
-           <input type="file" @change="onFileSelected()" ref="file" class="pointer_input">
+        <label class="input_file_modifyProfil" title="Boutton choisir image" alt="Boutton choisir image" for="pointer_choose_file"> .
+           <input type="file" @change="onFileSelected()" ref="file" class="pointer_input" id="pointer_choose_file" aria-label="Boutton choisir un fichier">
         </label>
         <span class="icon_file_modifyProfil"><i class="fa-solid fa-file oui"></i></span>
     </div>
+    <!-- bouton modifier -->
     <div class="block_button_modifyProfil">
         <button class="button_modifyProfil" v-on:click="modifyPic()">Modifier</button>
     </div>
 </main>
+<!-- message d'erreur -->
 <h2 v-if="this.msgError !== ''" class="msgError_modifyProfil">{{this.msgError}}</h2>
 </template>
 
@@ -42,11 +47,13 @@ export default {
     },
     methods: {
         userInfo() {
+            /* on récupère les infos de l'utilisateur pour afficher sa photo de profil */
             const id = JSON.parse(localStorage.getItem('user')).userId
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
             .then((res) => {this.profil = res.data})
         },
         onFileSelected() {
+            /* on crée un URL pour la nouvelle image de profil, pour pouvoir l'afficher */
              this.data.file = this.$refs.file.files[0]; 
              let img = this.$refs.file.files[0]
              this.data.newImg = new Image(img.width, img.height)
@@ -56,9 +63,9 @@ export default {
              id.remove(id.value)
         },
         modifyPic() {
-            if (this.data.file !== '') {
-                let formData = new FormData()
+            if (this.data.file !== '') { 
             /* on envoie les données sous format formData */
+            let formData = new FormData()
             formData.append('image', this.data.file)
             const id = this.$route.params.id
             const token = JSON.parse(localStorage.getItem('user'))
@@ -69,6 +76,7 @@ export default {
                               }})
                 .then(() => this.$router.push("/home"))
           } else {
+              /* si l'utilisateur n'as pas choisi de photo de profil, message d'erreur */
               this.msgError = "Choisi une photo de profil"
           }
          },
@@ -76,7 +84,6 @@ export default {
          backHome() {
              this.$router.push("/home")
          }
-
         }
     }       
 </script>
@@ -184,4 +191,11 @@ export default {
     align-self: center;
     font-size: 15px
 }
+
+@media (max-width: 650px) {
+    .block_modifyProfil {
+        width: 70%
+    }
+}
+
 </style>

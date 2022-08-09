@@ -23,6 +23,7 @@ export default {
     methods: {
         /* méthode put pour modifier le commentaire  */
         ModifyComment() {
+            /* on envoi le text à modifier ainsi que l'id du commentaire + l'id du commentateur */
             const id = this.$route.params.id
             const commentId = JSON.parse(localStorage.getItem('comment')).commentId
             const commentText = this.text

@@ -27,6 +27,7 @@
        </div>
       <!-- boutton création du compte --> 
     <button class="btn_connexion_signup" type="submit">Créer son compte</button>
+    <p class="msgError_signup">{{this.msgError}}</p>
   </form>
 </main>
 </template>
@@ -42,7 +43,8 @@ export default {
       },
         msgErrorMail: '',
         msgErrorPassword: '',
-        msgErrorUsername: '' 
+        msgErrorUsername: '' ,
+        msgError: ''
       }
     },
     /* on verifie si l'utilisateur est déjà log, si oui on le renvoi a /home */
@@ -69,9 +71,13 @@ export default {
             body: JSON.stringify(account)
         })
         .then((res) => {
+                /* on renvoi l'utilisateur vers la page pour se log */
                 if (res.ok) {
                     this.$router.push("/login")
                     return res.json();
+            } else {
+              /* si l'email est déjà utilisé on renvoi un message d'erreur */
+              this.msgError = 'Email déjà utilisé'
             }
            }
           ) 
@@ -172,6 +178,12 @@ a {
 
 .msgError_signup {
   color: #FD2D01
+}
+
+@media (max-width: 810px) {
+  .btn_connexion_signup {
+    width: 60%;
+  }
 }
 
 </style>

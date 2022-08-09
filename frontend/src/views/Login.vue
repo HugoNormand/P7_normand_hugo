@@ -49,9 +49,6 @@ export default {
           let connexion = {
                 ...this.dataForm
           } 
-          const instance = axios.create({
-              baseURL: 'http://localhost:3000/api/post'
-          })
           axios.post("http://localhost:3000/api/auth/login", connexion)
           .then((res) => {
             /* on crée un localstorage spécial pour l'admin qui nous servira plus tard */
@@ -61,6 +58,7 @@ export default {
               localStorage.setItem("loggedIn", true),
               this.$router.push("/home")
             } else {
+              /* on crée un localstorage user pour récuperer les informations de l'utilisateur comme son token, userId et username */
               localStorage.setItem("user", JSON.stringify(res.data)),
               localStorage.setItem("loggedIn", true),
               this.$router.push("/home")
@@ -69,6 +67,7 @@ export default {
           )
           .catch((error) => {
             if (error) {
+              /* si il y'as une erreur on renvoi un message d'erreur */
               this.msgError = 'Adresse mail ou mot de passe incorrect'
             }
           }) 
