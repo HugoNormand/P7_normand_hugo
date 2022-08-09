@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="createPost" class="block_CreatePost">
+    <form class="block_CreatePost">
      <div class="post_text">
           <!-- photo de profil de l'utilisateur, zone de texte pour post -->
           <img class="profilPic_createPost" v-bind:src="this.profil.profilImage" alt="Photo de profil utilisateur">
@@ -9,13 +9,13 @@
             <span class="icon_choose_file" aria-label="Boutton selection de fichier"><i class="fa-solid fa-photo-film"></i>
             <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id" aria-label="Boutton selection de fichier"/>
             </span>  
-            <button class="send_button_create_post" aria-label="Boutton poster" title="Post button"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
+            <button class="send_button_create_post" aria-label="Boutton poster" title="Post button" v-on:click.prevent="createPost()"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
           </div>
       </div>
       <!-- affichage de l'image si l'utilisateur poste une image -->
       <div v-if="postData.file" class="image_apparition">
            <!-- boutton pour supprimer image , image choisi -->
-           <button class= "remove_img_createPost" v-if="postData.file" v-on:click="removeFileSelect" aria-label="Boutton supprimer image" title="Boutton supprimer image"><span class="icon_delete_img"><i class="fa-solid fa-circle-xmark"></i></span></button>
+           <button class= "remove_img_createPost" v-if="postData.file" v-on:click="removeFileSelect()"><span class="icon_delete_img"><i class="fa-solid fa-circle-xmark"></i></span></button>
            <img :src="postData.newImg.src" :alt="postData.file.name" class="img_createPost">
       </div>
       <!-- message d'erreur si le post est vide -->
