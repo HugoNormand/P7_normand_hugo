@@ -75,7 +75,7 @@ export default {
 }
 
 .header_profil_pic {
-    width: 100%;
+    width: 40px;
     height: 40px;
     border-radius: 200px;
     object-fit: fill;

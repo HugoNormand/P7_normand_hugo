@@ -107,7 +107,7 @@ export default {
 }
 
 .profilPic_createPost{
-    width: 10%;
+    width: 40px;
     height: 40px;
     border-radius: 200px;
     border: 2px solid #FFD7D7;

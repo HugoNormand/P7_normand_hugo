@@ -35,7 +35,8 @@ export default {
 
     data() {
        return {
-           posts: []
+           posts: [],
+           profil: []
        } 
     },
 
@@ -81,7 +82,7 @@ export default {
         
         routeModifyPost(id) {
             this.$router.push(`/modifyPost/${id}`)
-        }
+        },
     }
 }
 </script>
@@ -112,7 +113,7 @@ export default {
 }
 
 .profil_img_user{
-    width: 40%;
+    width: 40px;
     border-radius: 300px;
     height: 40px;
     align-self: center;

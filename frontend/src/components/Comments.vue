@@ -6,9 +6,6 @@
       </div>
       <p class="msgError_comment" v-if="this.text == ''">{{msgError}}</p>
       <div v-for=" comments in comment" class="UsersComment" >
-          <div class="imageProfilCommenter">  
-
-          </div>
           <div class="block_commenter_text">
               <div class="commenter_name">
                   <h3>{{ comments.commenterPseudo }}</h3>
