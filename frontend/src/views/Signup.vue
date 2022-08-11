@@ -4,7 +4,7 @@
 </header>
 <main>
   <!-- formulaire d'inscritpion pour Signup -->
-  <form @submit="createAccount" class="form_signup">
+  <form class="form_signup">
       <h1 class="signup_title">Signup</h1>
       <p>Vous avez déjà un compte ? <router-link to="login">Connexion</router-link></p>
       <!-- formulaire pour l'email -->
@@ -16,7 +16,7 @@
       <!-- formulaire pour le pseudo de l'utilisateur -->
         <div class="form-group">
           <label class="label_text_signup" for="username_signup">Pseudo :
-          <input class="input_signup_text" id="username_signup" type="text" v-model= "dataForm.username" v-on:change="usernameCheck()"  placeholder="Entrer son pseudo"></label>
+          <input class="input_signup_text" id="username_signup" type="text" v-model= "dataForm.username" v-on:change="usernameCheck(dataForm.username)"  placeholder="Entrer son pseudo"></label>
           <p class="msgError_signup">{{ this.msgErrorUsername }}</p>
         </div>
       <!-- formulaire pour le mot de passe -->
@@ -26,7 +26,7 @@
           <p class="msgError_signup">{{ this.msgErrorPassword }}</p>
        </div>
       <!-- boutton création du compte --> 
-    <button class="btn_connexion_signup" type="submit">Créer son compte</button>
+    <button class="btn_connexion_signup" type="submit" v-on:click.prevent="createAccount">Créer son compte</button>
     <p class="msgError_signup">{{this.msgError}}</p>
   </form>
 </main>
@@ -37,9 +37,9 @@ export default {
     data() {
       return {
         dataForm: { 
-          email: null,
+          email: '',
           username: '',
-          password: null
+          password: ''
       },
         msgErrorMail: '',
         msgErrorPassword: '',
@@ -57,7 +57,7 @@ export default {
     methods: {
        /* methode post pour la création du compte avec validation des RegExp */
        createAccount(e) {
-         if (this.emailRegExp && this.passwordRegExp) {
+         if (this.emailRegExp(this.dataForm.email) && this.passwordRegExp(this.dataForm.password) && this.usernameCheck(this.dataForm.username)) {
           e.preventDefault() 
           let account = {
                 ...this.dataForm
@@ -81,7 +81,9 @@ export default {
             }
            }
           ) 
-         } 
+         } else {
+            console.log('erreur')
+         }
         },
         /* RegExp pour l'email, on s'assure que l'email est valide */
         emailRegExp(inputEmail) {
@@ -104,9 +106,13 @@ export default {
           }
         },
         /* On s'assure que le pseudo n'est pas juste un blanc */
-        usernameCheck() {
-          if (this.dataForm.username == '' || this.dataForm.username == ' ') {
-            this.msgErrorUsername = 'Entrez votre pseudo'
+        usernameCheck(inputUsername) {
+          let usernameRegExp = new RegExp('^[a-zA-Z0-9.-_]{4,}$')
+          let testUsername = usernameRegExp.test(inputUsername)
+          if (testUsername== false) {
+            this.msgErrorUsername= 'Le pseudo doit contenir minimum 4 charactères'
+          } else {
+              return true
           }
         }
       }
