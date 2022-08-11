@@ -7,7 +7,7 @@
           <div class="submit_photo">
             <!-- icon choisir image , icon poster -->  
             <span class="icon_choose_file" aria-label="Boutton selection de fichier"><i class="fa-solid fa-photo-film"></i>
-            <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id" aria-label="Boutton selection de fichier"/>
+            <input class="input_img_post" type="file" name="images" @change="onFileSelected" ref="file" id="file_id" aria-label="Boutton selection de fichier" accept="image/*"/>
             </span>  
             <button class="send_button_create_post" aria-label="Boutton poster" title="Post button" v-on:click.prevent="createPost()"><span class="icon_send"><i class="fa-regular fa-paper-plane"></i></span></button>
           </div>

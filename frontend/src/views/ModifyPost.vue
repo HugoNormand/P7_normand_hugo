@@ -12,7 +12,7 @@
         <!-- section pour modifier la photo du post -->
         <section class="submit_photo_modify" id="remove">
             <span class="icon_choose_file color_modify_icon" style="font-size: 25px" aria-label="Icon choisir fichier image"><i class="fa-solid fa-photo-film"></i></span>
-            <input class="modify_choose_file" type="file" name="images" @change="onFileSelected" ref="file" aria-label="Choisir fichier image"/>
+            <input class="modify_choose_file" type="file" name="images" @change="onFileSelected" ref="file" aria-label="Choisir fichier image" accept="image/*"/>
             <div v-if="ModifyPost.imageUrl" id="child-remove"><img :src="ModifyPost.imageUrl" alt="image du post" class="img_ModifyPost"></div>
             <div v-if="data.file"><img :src="data.newImg.src" alt="image du post" class="img_ModifyPost"></div>
         </section>

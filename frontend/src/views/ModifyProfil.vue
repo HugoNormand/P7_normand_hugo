@@ -16,7 +16,7 @@
     <!-- icon choisir une nouvelle image -->
     <div class="block_choose_file_modifyProfil">
         <label class="input_file_modifyProfil" title="Boutton choisir image" alt="Boutton choisir image" for="pointer_choose_file"> .
-           <input type="file" @change="onFileSelected()" ref="file" class="pointer_input" id="pointer_choose_file" aria-label="Boutton choisir un fichier">
+           <input type="file" @change="onFileSelected()" ref="file" class="pointer_input" id="pointer_choose_file" aria-label="Boutton choisir un fichier" accept="image/*">
         </label>
         <span class="icon_file_modifyProfil"><i class="fa-solid fa-file oui"></i></span>
     </div>
