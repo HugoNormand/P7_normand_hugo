@@ -35,7 +35,12 @@ export default {
         /* on récupère les infos utilisateurs pour la photo de profil */
         userInfo() {
             const id = JSON.parse(localStorage.getItem('user')).userId
-            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
+            const token = JSON.parse(localStorage.getItem('user'))
+            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`,
+            {
+                    headers: {
+                        'Authorization': `Bearer ${token.token}`
+                    }})
             .then((res) => {this.profil = res.data})
         },
         /* fonction qui mène a la page modifyProfil avec récupération de l'ID */

@@ -56,7 +56,11 @@ export default {
         userInfo() {
             /* on récupère les infos de l'utilisateur pour afficher sa photo de profil */
             const id = JSON.parse(localStorage.getItem('user')).userId
-            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`)
+            const token = JSON.parse(localStorage.getItem('user'))
+            axios.get(`http://localhost:3000/api/auth/userInfo/${id}`,
+             { headers: { 'Content-Type': 'multipart/form-data',
+                             'Authorization': `Bearer ${token.token}` 
+                              }})
             .then((res) => {this.profil = res.data})
         },
         onFileSelected() {

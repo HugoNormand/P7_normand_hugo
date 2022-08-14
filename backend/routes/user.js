@@ -6,7 +6,7 @@ const auth = require('../middleware/auth')
 
 routing.post('/signup', userCtrl.signup);
 routing.post('/login', userCtrl.login)
-routing.get('/userInfo/:id', userCtrl.getInfo)
+routing.get('/userInfo/:id',auth, userCtrl.getInfo)
 routing.put('/modifyProfil/:id',auth, multer, userCtrl.modifyProfilPic)
 
 module.exports = routing;
