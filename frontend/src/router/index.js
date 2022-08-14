@@ -6,7 +6,6 @@ import ModifyPost from '../views/ModifyPost.vue'
 import ModifyComment from '../views/ModifyComment.vue'
 import ModifyProfil from '../views/ModifyProfil.vue'
 
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

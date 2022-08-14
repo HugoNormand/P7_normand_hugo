@@ -65,8 +65,7 @@ export default {
                 { 'Authorization': `Bearer ${token.token}`}})
                 .then(()=> this.$emit("getPosts"))
         }
-    }
-       
+    }      
 }
 </script>
 

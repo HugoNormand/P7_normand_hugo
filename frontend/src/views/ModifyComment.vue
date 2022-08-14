@@ -20,6 +20,15 @@ export default {
             text: JSON.parse(localStorage.getItem('comment')).commenterText,
         }      
     },
+
+    beforeRouteEnter(routeTo, routeFrom, next) {
+        let status = localStorage.getItem('loggedIn');
+        if (!status) {
+            next({ name: 'Login' })
+        }
+        next()
+    },
+
     methods: {
         /* méthode put pour modifier le commentaire  */
         ModifyComment() {
@@ -28,14 +37,14 @@ export default {
             const commentId = JSON.parse(localStorage.getItem('comment')).commentId
             const commentText = this.text
             const commenterId = JSON.parse(localStorage.getItem('user')).userId
-            const token = JSON.parse(localStorage.getItem('user'))
+            const token = JSON.parse(localStorage.getItem('user')).token
             axios.put(`http://localhost:3000/api/post/${id}/comment`, {
                 commenterId: commenterId,
                 commentId: commentId,
                 text: commentText
             } , 
                 { headers: { 
-                             'Authorization': `Bearer ${token.token}` 
+                             'Authorization': `Bearer ${token}` 
                               }})
                 .then(() => this.$router.push('/home'))
         },

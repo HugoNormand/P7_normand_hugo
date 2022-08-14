@@ -38,6 +38,13 @@ export default {
     created() {
         this.GetOnePost(this.$route.params.id)
     },
+    beforeRouteEnter(routeTo, routeFrom, next) {
+        let status = localStorage.getItem('loggedIn');
+        if (!status) {
+            next({ name: 'Login' })
+        }
+        next()
+    },
     methods: {
         /* on récupère les infos du post à modifier */
         GetOnePost(id){
@@ -62,19 +69,18 @@ export default {
         },
         /* fonction modification de post */
         PostModify() {
-            /* on donne accès a l'admin de pouvoir modifier le post aussi */
-            if (localStorage.getItem('admin')) {
-                if (this.data.file !== '') {
-                let formData = new FormData()
-                let post = {
+            let post = {
                 postText: this.ModifyPost.postText,    
             }
-            /* on envoie les données sous format formData */
-            formData.append('post', JSON.stringify(post))
-            formData.append('image', this.data.file)
             const id = this.$route.params.id
             const token = JSON.parse(localStorage.getItem('user'))
             const adminId = JSON.parse(localStorage.getItem('admin'))
+            /* on donne accès a l'admin de pouvoir modifier le post aussi */
+            if (this.data.file !== '') {
+            let formData = new FormData() 
+            /* on envoie les données sous format formData */
+            formData.append('post', JSON.stringify(post))
+            formData.append('image', this.data.file)
             /* méthode put pour modifier le post */
             axios.put(`http://localhost:3000/api/post/${id}`, formData, 
                 { headers: { 'Content-Type': 'multipart/form-data',
@@ -82,59 +88,24 @@ export default {
                               }})
                 .then(() => this.$router.push("/home"))
             } else  {
-                /* si le data.file n'existe pas on envoie simplement le text */
-                let formData = new FormData()
-                let post = {
-                 postText: this.ModifyPost.postText,
-                 adminId: JSON.parse(localStorage.getItem('admin'))
-            }
+            /* si le data.file n'existe pas on envoie simplement le text */
+            let formData = new FormData()
             formData.append('post', JSON.stringify(post))
-            const id = this.$route.params.id
-            const token = JSON.parse(localStorage.getItem('user'))
             axios.put(`http://localhost:3000/api/post/${id}`, formData, 
                 { headers: { 'Content-Type': 'multipart/form-data',
                              'Authorization': `Bearer ${token.token}` 
                               }})
                 .then(() => this.$router.push("/home"))
             }
-            } else {
-                /* même méthode si c'est le créateur du post qui veux modifier */
-                if (this.data.file !== '') {
-                let formData = new FormData()
-            let post = {
-                postText: this.ModifyPost.postText,
-            }
-            formData.append('post', JSON.stringify(post))
-            formData.append('image', this.data.file)
-            const id = this.$route.params.id
-            const token = JSON.parse(localStorage.getItem('user'))
-            axios.put(`http://localhost:3000/api/post/${id}`, formData, 
-                { headers: { 'Content-Type': 'multipart/form-data',
-                             'Authorization': `Bearer ${token.token}` 
-                              }})
-                .then(() => this.$router.push("/home"))
-            } else  {
-                let formData = new FormData()
-                let post = {
-                 postText: this.ModifyPost.postText,
-            }
-            formData.append('post', JSON.stringify(post))
-            const id = this.$route.params.id
-            const token = JSON.parse(localStorage.getItem('user'))
-            axios.put(`http://localhost:3000/api/post/${id}`, formData, 
-                { headers: { 'Content-Type': 'multipart/form-data',
-                             'Authorization': `Bearer ${token.token}` 
-                              }})
-                .then(() => this.$router.push("/home"))
-            }
-            }     
-        },
+            },
+
         /* fonction qui renvoi l'utilisateur a la page /home si il clique sur le logo */
         backHome() {
             this.$router.push("/home")
-        },
-    }       
-    }
+        },  
+        },     
+    }  
+     
 </script>
 
 <style>
