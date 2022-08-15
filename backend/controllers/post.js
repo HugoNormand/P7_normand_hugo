@@ -95,7 +95,9 @@ exports.modifyPost = (req, res, next) => {
     } else {
       res.status(403).json('403: unauthorized request')
     }
-  })  
+  })
+  .catch(error => res.status(400).json({ error }))
+
 }
 
 exports.likePost = (req, res, next) => {
@@ -122,6 +124,7 @@ exports.likePost = (req, res, next) => {
       }
     }
   })
+  .catch(error => res.status(400).json({ error }))
 } 
 
 exports.commentPost = (req, res, next) => {
@@ -140,6 +143,7 @@ exports.commentPost = (req, res, next) => {
       .then(() => res.status(200).json({message: 'Commentaire ajouté !'}))
       .catch(error => res.status(400).json({ error }))  
   })
+  .catch(error => res.status(400).json({ error }))
 } 
 
 exports.modifyComment = (req, res, next) => {
@@ -162,7 +166,8 @@ exports.modifyComment = (req, res, next) => {
     else {
       res.status(403).json('403: unauthorized request')
     }
-  })  
+  })
+  .catch(error => res.status(400).json({ error }))
 }
          
 exports.deleteComment = (req, res, next) => {
