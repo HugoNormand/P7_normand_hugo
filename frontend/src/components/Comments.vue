@@ -8,21 +8,21 @@
         <!-- message d'erreur si le commentaire est vide -->
         <p class="msgError_comment" v-if="this.text == ''">{{msgError}}</p>
         <!-- affichage des commentaires -->
-        <div v-for=" comments in comment" class="UsersComment">
+        <div v-for=" comment in comments" class="UsersComment">
             <div class="block_commenter_text">
                 <!-- nom du commentateur -->
                 <div class="commenter_name">
-                    <h3>{{ comments.commenterPseudo }}</h3>
+                    <h3>{{ comment.commenterPseudo }}</h3>
                 </div>
                 <!-- text du commentaire -->
                 <div class="commenter_post">
-                    <p>{{ comments.text }}</p>
+                    <p>{{ comment.text }}</p>
                 </div>
             </div>
             <!-- boutton pour supprimer ou modifier le commentaire si admin ou utilisateur qui a commenté -->
             <div class="delete_commenter">
-                <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="deleteButton(postId, comments._id, comments.commenterId)" aria-label="Boutton supprimer commentaire" title="Boutton supprimer commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-trash"></i></span></button>
-                <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="routeModifyComment(postId, comments._id, comments.text)" aria-label="Boutton modifier commentaire" title="Boutton modifier commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
+                <button class="comment_button" v-if="auth(comment.commenterId) || admin()" v-on:click="deleteButton(postId, comment._id, comment.commenterId)" aria-label="Boutton supprimer commentaire" title="Boutton supprimer commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-trash"></i></span></button>
+                <button class="comment_button" v-if="auth(comment.commenterId) || admin()" v-on:click="routeModifyComment(postId, comment._id, comment.text)" aria-label="Boutton modifier commentaire" title="Boutton modifier commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
             </div>
         </div>
     </div>
@@ -33,7 +33,7 @@ import axios from 'axios'
 export default {
     props: {
        postId: String,
-       comment: []
+       comments: []
     },
     data() {
         return {

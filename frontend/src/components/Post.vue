@@ -24,7 +24,7 @@
         </div> 
         <!-- composant Likes et Comments -->
         <Likes :postId="post._id" :usersLiked="post.usersLiked" :comment="post.usersComment" @getPosts="updatePosts"/>
-        <Comments :postId="post._id" :comment="post.usersComment" @getPosts="updatePosts"/>
+        <Comments :postId="post._id" :comments="post.usersComment" @getPosts="updatePosts"/>
     </div>
 </template>
 
