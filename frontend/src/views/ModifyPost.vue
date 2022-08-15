@@ -38,13 +38,13 @@ export default {
     created() {
         this.GetOnePost(this.$route.params.id)
     },
-    beforeRouteEnter(routeTo, routeFrom, next) {
+   /*  beforeRouteEnter(routeTo, routeFrom, next) {
         let status = localStorage.getItem('loggedIn');
         if (!status) {
             next({ name: 'Login' })
         }
         next()
-    },
+    }, */
     methods: {
         /* on récupère les infos du post à modifier */
         GetOnePost(id){

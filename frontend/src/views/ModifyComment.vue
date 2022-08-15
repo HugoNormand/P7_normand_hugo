@@ -21,13 +21,13 @@ export default {
         }      
     },
 
-    beforeRouteEnter(routeTo, routeFrom, next) {
+    /* beforeRouteEnter(routeTo, routeFrom, next) {
         let status = localStorage.getItem('loggedIn');
         if (!status) {
             next({ name: 'Login' })
         }
         next()
-    },
+    }, */
 
     methods: {
         /* méthode put pour modifier le commentaire  */

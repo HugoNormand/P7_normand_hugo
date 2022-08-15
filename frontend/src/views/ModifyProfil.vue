@@ -45,13 +45,13 @@ export default {
     created() {
         this.userInfo()
     },
-    beforeRouteEnter(routeTo, routeFrom, next) {
+    /* beforeRouteEnter(routeTo, routeFrom, next) {
         let status = localStorage.getItem('loggedIn');
         if (!status) {
             next({ name: 'Login' })
         }
         next()
-    },
+    }, */
     methods: {
         userInfo() {
             /* on récupère les infos de l'utilisateur pour afficher sa photo de profil */

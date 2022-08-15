@@ -23,13 +23,13 @@ export default {
         Header
     },
     /* si l'utilisateur n'est pas log il ne peux pas aller sur la page /home */
-    beforeRouteEnter(routeTo, routeFrom, next) {
+    /* beforeRouteEnter(routeTo, routeFrom, next) {
         let status = localStorage.getItem('loggedIn');
         if (!status) {
             next({ name: 'Login' })
         }
         next()
-    },
+    }, */
 }
 </script>
 
