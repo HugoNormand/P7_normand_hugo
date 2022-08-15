@@ -1,31 +1,31 @@
 <template>
-  <div class="commentSection">
-      <div class="postComment">
-          <!-- zone de texte pour le commentaire , boutton pour commenter -->
-          <textarea class="comment" placeholder="Votre Commentaire" v-model="this.text" aria-label="Zone de texte commentaire"></textarea>
-          <button class="submitComment" v-on:click="submitComment(postId)" aria-label="Boutton poster commentaire" title="Boutton poster commentaire"><span class= "comment_icon_button"><i class="fa-regular fa-comments"></i></span></button>
-      </div>
-      <!-- message d'erreur si le commentaire est vide -->
-      <p class="msgError_comment" v-if="this.text == ''">{{msgError}}</p>
-      <!-- affichage des commentaires -->
-      <div v-for=" comments in comment" class="UsersComment">
-          <div class="block_commenter_text">
-              <!-- nom du commentateur -->
-              <div class="commenter_name">
-                  <h3>{{ comments.commenterPseudo }}</h3>
-              </div>
-              <!-- text du commentaire -->
-              <div class="commenter_post">
-                  <p>{{ comments.text }}</p>
-              </div>
-          </div>
-          <!-- boutton pour supprimer ou modifier le commentaire si admin ou utilisateur qui a commenté -->
-          <div class="delete_commenter">
-              <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="deleteButton(postId, comments._id, comments.commenterId)" aria-label="Boutton supprimer commentaire" title="Boutton supprimer commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-trash"></i></span></button>
-              <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="routeModifyComment(postId, comments._id, comments.text)" aria-label="Boutton modifier commentaire" title="Boutton modifier commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
-          </div>
-      </div>
-  </div>
+    <div class="commentSection">
+        <div class="postComment">
+            <!-- zone de texte pour le commentaire , boutton pour commenter -->
+            <textarea class="comment" placeholder="Votre Commentaire" v-model="this.text" aria-label="Zone de texte commentaire"></textarea>
+            <button class="submitComment" v-on:click="submitComment(postId)" aria-label="Boutton poster commentaire" title="Boutton poster commentaire"><span class= "comment_icon_button"><i class="fa-regular fa-comments"></i></span></button>
+        </div>
+        <!-- message d'erreur si le commentaire est vide -->
+        <p class="msgError_comment" v-if="this.text == ''">{{msgError}}</p>
+        <!-- affichage des commentaires -->
+        <div v-for=" comments in comment" class="UsersComment">
+            <div class="block_commenter_text">
+                <!-- nom du commentateur -->
+                <div class="commenter_name">
+                    <h3>{{ comments.commenterPseudo }}</h3>
+                </div>
+                <!-- text du commentaire -->
+                <div class="commenter_post">
+                    <p>{{ comments.text }}</p>
+                </div>
+            </div>
+            <!-- boutton pour supprimer ou modifier le commentaire si admin ou utilisateur qui a commenté -->
+            <div class="delete_commenter">
+                <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="deleteButton(postId, comments._id, comments.commenterId)" aria-label="Boutton supprimer commentaire" title="Boutton supprimer commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-trash"></i></span></button>
+                <button class="comment_button" v-if="auth(comments.commenterId) || admin()" v-on:click="routeModifyComment(postId, comments._id, comments.text)" aria-label="Boutton modifier commentaire" title="Boutton modifier commentaire"><span style="font-size: 17px; color: white"><i class="fa-solid fa-arrows-spin"></i></span></button>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -74,7 +74,7 @@ export default {
                     text: text
                 }, { 
                 headers: { 
-                             'Authorization': `Bearer ${token.token}` 
+                    'Authorization': `Bearer ${token.token}` 
                 }}
             )
             /* on fait un emit pour pouvoir rechargé dynamiquement le contenu */

@@ -57,7 +57,7 @@ export default {
     methods: {
        /* methode post pour la création du compte avec validation des RegExp */
        createAccount(e) {
-         if (this.emailRegExp(this.dataForm.email) && this.passwordRegExp(this.dataForm.password) && this.usernameCheck(this.dataForm.username)) {
+        if (this.emailRegExp(this.dataForm.email) && this.passwordRegExp(this.dataForm.password) && this.usernameCheck(this.dataForm.username)) {
           e.preventDefault() 
           let account = {
                 ...this.dataForm
@@ -69,21 +69,20 @@ export default {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(account)
-        })
-        .then((res) => {
-                /* on renvoi l'utilisateur vers la page pour se log */
-                if (res.ok) {
-                    this.$router.push("/login")
-                    return res.json();
+          })
+          .then((res) => {
+            /* on renvoi l'utilisateur vers la page pour se log */
+            if (res.ok) {
+                this.$router.push("/login")
+                return res.json();
             } else {
               /* si l'email est déjà utilisé on renvoi un message d'erreur */
               this.msgError = 'Email déjà utilisé'
             }
-           }
-          ) 
-         } else {
-            console.log('erreur')
-         }
+          }) 
+        } else {
+          console.log('erreur')
+        }
         },
         /* RegExp pour l'email, on s'assure que l'email est valide */
         emailRegExp(inputEmail) {
@@ -92,8 +91,8 @@ export default {
           if (testEmail == false) {
             this.msgErrorMail = 'Adresse mail non valide'
           } else {
-              return true
-         }
+            return true
+          }
         },
         /* Regexp pour le mot de passe, on s'assure que le mot de passe contient au moins 4 charactères */
         passwordRegExp(inputPassword) {
@@ -102,7 +101,7 @@ export default {
           if (testPassword == false) {
             this.msgErrorPassword = 'Le mot de passe doit contenir minimum 4 charactères'
           } else {
-              return true
+            return true
           }
         },
         /* On s'assure que le pseudo n'est pas juste un blanc */
@@ -112,7 +111,7 @@ export default {
           if (testUsername== false) {
             this.msgErrorUsername= 'Le pseudo doit contenir minimum 4 charactères'
           } else {
-              return true
+            return true
           }
         }
       }

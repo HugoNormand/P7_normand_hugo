@@ -39,10 +39,10 @@ export default {
     },
 
     data() {
-       return {
+        return {
            posts: [],
            profil: []
-       } 
+        } 
     },
 
     created() {
@@ -63,9 +63,9 @@ export default {
         /* vérification pour savoir si l'utilisateur est l'admin et ainsi pouvoir supprimer ou modifier les posts */
         admin() {
             /* vérification avec le localstorage admin */
-           if (localStorage.getItem('admin')) {
+            if (localStorage.getItem('admin')) {
                return true
-           }
+            }
         },
         /* affichage des posts avec GET */
         updatePosts(){
@@ -80,12 +80,13 @@ export default {
         },
         /* fonction pour supprimer le post */
         deletePosts(id){
-                const token = JSON.parse(localStorage.getItem('user'))
-                axios.delete("http://localhost:3000/api/post/"+id, {
-                    headers: {
-                        'Authorization': `Bearer ${token.token}`
-                    }})
-                    .then(() => this.updatePosts())
+            const token = JSON.parse(localStorage.getItem('user'))
+            axios.delete("http://localhost:3000/api/post/"+id, {
+                headers: {
+                    'Authorization': `Bearer ${token.token}`
+                }
+            })
+            .then(() => this.updatePosts())
         },
         /* route qui mène a la page modifyPost avec l'id du post dans l'URL */
         routeModifyPost(id) {

@@ -26,7 +26,7 @@
 import axios from 'axios'
 export default {
     data() {
-       return {
+        return {
            ModifyPost: [],
            data: {
                file:'',
@@ -59,13 +59,13 @@ export default {
         },
         /* si utilisateur sélectionne une nouvelle image, on crée un url pour pouvoir afficher l'image */
         onFileSelected() {
-             this.data.file = this.$refs.file.files[0]; 
-             let img = this.$refs.file.files[0]
-             this.data.newImg = new Image(img.width, img.height)
-             this.data.newImg.src = URL.createObjectURL(img)
-             /* quand l'utilisateur à choisi une nouvelle image, on supprime l'ancienne du visuel */
-             const id = document.getElementById('child-remove')
-             id.remove(id.value)
+            this.data.file = this.$refs.file.files[0]; 
+            let img = this.$refs.file.files[0]
+            this.data.newImg = new Image(img.width, img.height)
+            this.data.newImg.src = URL.createObjectURL(img)
+            /* quand l'utilisateur à choisi une nouvelle image, on supprime l'ancienne du visuel */
+            const id = document.getElementById('child-remove')
+            id.remove(id.value)
         },
         /* fonction modification de post */
         PostModify() {
@@ -83,28 +83,33 @@ export default {
             formData.append('image', this.data.file)
             /* méthode put pour modifier le post */
             axios.put(`http://localhost:3000/api/post/${id}`, formData, 
-                { headers: { 'Content-Type': 'multipart/form-data',
-                             'Authorization': `Bearer ${token.token}` 
-                              }})
+                { headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': `Bearer ${token.token}` 
+                    }
+                })
                 .then(() => this.$router.push("/home"))
             } else  {
             /* si le data.file n'existe pas on envoie simplement le text */
             let formData = new FormData()
             formData.append('post', JSON.stringify(post))
             axios.put(`http://localhost:3000/api/post/${id}`, formData, 
-                { headers: { 'Content-Type': 'multipart/form-data',
-                             'Authorization': `Bearer ${token.token}` 
-                              }})
+                { 
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${token.token}` 
+                    }
+                })
                 .then(() => this.$router.push("/home"))
             }
-            },
+        },
 
         /* fonction qui renvoi l'utilisateur a la page /home si il clique sur le logo */
         backHome() {
             this.$router.push("/home")
         },  
-        },     
-    }  
+    },     
+}  
      
 </script>
 

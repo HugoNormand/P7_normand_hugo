@@ -34,8 +34,8 @@ import axios from 'axios'
 export default {
     data() {
         return {
-             profil: [],
-             data: {
+            profil: [],
+            data: {
                file:'',
                newImg: ''
            },
@@ -58,20 +58,22 @@ export default {
             const id = JSON.parse(localStorage.getItem('user')).userId
             const token = JSON.parse(localStorage.getItem('user'))
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`,
-             { headers: { 'Content-Type': 'multipart/form-data',
-                             'Authorization': `Bearer ${token.token}` 
-                              }})
+             { headers: { 
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}` 
+                }
+            })
             .then((res) => {this.profil = res.data})
         },
         onFileSelected() {
             /* on crée un URL pour la nouvelle image de profil, pour pouvoir l'afficher */
-             this.data.file = this.$refs.file.files[0]; 
-             let img = this.$refs.file.files[0]
-             this.data.newImg = new Image(img.width, img.height)
-             this.data.newImg.src = URL.createObjectURL(img)
-             /* quand l'utilisateur à choisi une nouvelle image, on supprime l'ancienne du visuel */
-             const id = document.getElementById('img_profilPic_delete')
-             id.remove(id.value)
+            this.data.file = this.$refs.file.files[0]; 
+            let img = this.$refs.file.files[0]
+            this.data.newImg = new Image(img.width, img.height)
+            this.data.newImg.src = URL.createObjectURL(img)
+            /* quand l'utilisateur à choisi une nouvelle image, on supprime l'ancienne du visuel */
+            const id = document.getElementById('img_profilPic_delete')
+            id.remove(id.value)
         },
         modifyPic() {
             if (this.data.file !== '') { 
@@ -82,21 +84,24 @@ export default {
             const token = JSON.parse(localStorage.getItem('user'))
             /* méthode put pour modifier la photo de profil */
             axios.put(`http://localhost:3000/api/auth/modifyProfil/${id}`, formData, 
-                { headers: { 'Content-Type': 'multipart/form-data',
-                             'Authorization': `Bearer ${token.token}` 
-                              }})
+                { 
+                    headers: { 
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${token.token}` 
+                    }
+                })
                 .then(() => this.$router.push("/home"))
-          } else {
+            } else {
               /* si l'utilisateur n'as pas choisi de photo de profil, message d'erreur */
               this.msgError = "Choisi une photo de profil"
-          }
-         },
-         /* fonction qui renvoi l'utilisateur a la page /home si il clique sur le logo */
-         backHome() {
-             this.$router.push("/home")
-         }
+            }
+        },
+        /* fonction qui renvoi l'utilisateur a la page /home si il clique sur le logo */
+        backHome() {
+            this.$router.push("/home")
         }
-    }       
+    }
+}       
 </script>
 
 <style>

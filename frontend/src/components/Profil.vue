@@ -38,16 +38,17 @@ export default {
             const token = JSON.parse(localStorage.getItem('user'))
             axios.get(`http://localhost:3000/api/auth/userInfo/${id}`,
             {
-                    headers: {
-                        'Authorization': `Bearer ${token.token}`
-                    }})
+                headers: {
+                    'Authorization': `Bearer ${token.token}`
+                }
+            })
             .then((res) => {this.profil = res.data})
         },
         /* fonction qui mène a la page modifyProfil avec récupération de l'ID */
         modifyProfilRoute() {
-             const id = JSON.parse(localStorage.getItem('user')).userId
-             this.$router.push(`/modifyProfil/${id}`)
-         }
+            const id = JSON.parse(localStorage.getItem('user')).userId
+            this.$router.push(`/modifyProfil/${id}`)
+        }
     }
 }
 </script>

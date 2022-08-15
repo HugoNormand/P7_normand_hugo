@@ -46,9 +46,8 @@ export default {
             }
             const token = JSON.parse(localStorage.getItem('user'))
             axios.post(`http://localhost:3000/api/post/${id}/like`, body,
-            {   headers: 
-                { 'Authorization': `Bearer ${token.token}`}})
-                .then(()=> this.$emit("getPosts"))
+            { headers: { 'Authorization': `Bearer ${token.token}`}})
+            .then(()=> this.$emit("getPosts"))
         },
         /* fonction like qu'on envoi à l'API quand l'utilisateur Dislike */
         DislikeUpdate(id) {
@@ -61,9 +60,8 @@ export default {
             }
             const token = JSON.parse(localStorage.getItem('user'))
             axios.post(`http://localhost:3000/api/post/${id}/like`, body,
-            {   headers: 
-                { 'Authorization': `Bearer ${token.token}`}})
-                .then(()=> this.$emit("getPosts"))
+            { headers: { 'Authorization': `Bearer ${token.token}`}})
+            .then(()=> this.$emit("getPosts"))
         }
     }      
 }

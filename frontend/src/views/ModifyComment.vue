@@ -42,11 +42,10 @@ export default {
                 commenterId: commenterId,
                 commentId: commentId,
                 text: commentText
-            } , 
-                { headers: { 
-                             'Authorization': `Bearer ${token}` 
-                              }})
-                .then(() => this.$router.push('/home'))
+            }, 
+            { headers: { 'Authorization': `Bearer ${token}`}
+            })
+            .then(() => this.$router.push('/home'))
         },
         /* fonction qui renvoi l'utilisateur a la page /home si il clique sur le logo */
          backHome() {

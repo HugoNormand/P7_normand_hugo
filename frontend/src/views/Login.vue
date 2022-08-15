@@ -27,53 +27,53 @@
 <script>
 import axios from 'axios'
 export default {
-    data() {
-      return {
-        dataForm: { 
+  data() {
+    return {
+      dataForm: { 
         email: null,
         password: null
       },
-        msgError: '' }
-    },
-    /* on verifie si l'utilisateur est déjà log, si oui on le renvoi a /home */
-    beforeCreate() {
-          if (JSON.parse(localStorage.getItem("loggedIn")) == true) {
-                    this.$router.push("/home")
-          }
-          return ;
-    },
-    methods: {
-    /* methode post du Login */  
-       accountConnexion(e) {
-          e.preventDefault() 
-          let connexion = {
-                ...this.dataForm
-          } 
-          axios.post("http://localhost:3000/api/auth/login", connexion)
-          .then((res) => {
-            /* on crée un localstorage spécial pour l'admin qui nous servira plus tard */
-            if (connexion.email == 'admin@admingroupomania.com') {
-              localStorage.setItem("admin", JSON.stringify(res.data.userId)),
-              localStorage.setItem("user", JSON.stringify(res.data)),
-              localStorage.setItem("loggedIn", true),
-              this.$router.push("/home")
-            } else {
-              /* on crée un localstorage user pour récuperer les informations de l'utilisateur comme son token, userId et username */
-              localStorage.setItem("user", JSON.stringify(res.data)),
-              localStorage.setItem("loggedIn", true),
-              this.$router.push("/home")
-            }         
-             }      
-          )
-          .catch((error) => {
-            if (error) {
-              /* si il y'as une erreur on renvoi un message d'erreur */
-              this.msgError = 'Adresse mail ou mot de passe incorrect'
-            }
-          }) 
-        }, 
-      },  
+      msgError: ''
     }
+  },
+  /* on verifie si l'utilisateur est déjà log, si oui on le renvoi a /home */
+  beforeCreate() {
+    if (JSON.parse(localStorage.getItem("loggedIn")) == true) {
+      this.$router.push("/home")
+    }
+    return ;
+  },
+  methods: {
+    /* methode post du Login */  
+    accountConnexion(e) {
+      e.preventDefault() 
+      let connexion = {
+        ...this.dataForm
+      } 
+      axios.post("http://localhost:3000/api/auth/login", connexion)
+      .then((res) => {
+        /* on crée un localstorage spécial pour l'admin qui nous servira plus tard */
+        if (connexion.email == 'admin@admingroupomania.com') {
+          localStorage.setItem("admin", JSON.stringify(res.data.userId)),
+          localStorage.setItem("user", JSON.stringify(res.data)),
+          localStorage.setItem("loggedIn", true),
+          this.$router.push("/home")
+        } else {
+          /* on crée un localstorage user pour récuperer les informations de l'utilisateur comme son token, userId et username */
+          localStorage.setItem("user", JSON.stringify(res.data)),
+          localStorage.setItem("loggedIn", true),
+          this.$router.push("/home")
+        }         
+      })
+      .catch((error) => {
+        if (error) {
+          /* si il y'as une erreur on renvoi un message d'erreur */
+          this.msgError = 'Adresse mail ou mot de passe incorrect'
+        }
+      }) 
+    }, 
+  },  
+}
 </script>
 
 <style>
